@@ -27,24 +27,12 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #475569;
       }
-      @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-      }
-      .animate-shimmer {
-        animation: shimmer 2s infinite;
-      }
       
-      /* Animasi Khusus untuk Eksport */
+      /* Animasi Khusus */
       @keyframes blob-bounce {
         0%, 100% { transform: translate(0, 0) scale(1); }
         33% { transform: translate(30px, -50px) scale(1.1); }
         66% { transform: translate(-20px, 20px) scale(0.9); }
-      }
-      @keyframes blob-spin {
-        0% { transform: rotate(0deg) scale(1); }
-        50% { transform: rotate(180deg) scale(1.2); }
-        100% { transform: rotate(360deg) scale(1); }
       }
       @keyframes float-y {
         0%, 100% { transform: translateY(0); }
@@ -54,11 +42,15 @@
         0%, 100% { transform: scale(1); color: #facc15; }
         50% { transform: scale(1.1); color: #fbbf24; }
       }
+      @keyframes border-rotate {
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes scan-line {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
       
       .animate-blob-1 { animation: blob-bounce 20s infinite ease-in-out alternate; }
-      .animate-blob-2 { animation: blob-spin 25s infinite linear reverse; }
-      .animate-blob-3 { animation: blob-bounce 15s infinite ease-in-out; }
-      
       .animate-float-y { animation: float-y 6s infinite ease-in-out; }
       .animate-pulse-gold { animation: pulse-gold 2s infinite ease-in-out; }
       
@@ -71,16 +63,82 @@
         mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
         -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
       }
-      
-      /* Kelas Dedahan Skrol */
-      .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
+
+      /* Rekaan Butang Futuristik Unik */
+      .btn-futuristic {
+        position: relative;
+        overflow: hidden;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
       }
-      .reveal-on-scroll.is-visible {
-        opacity: 1;
-        transform: translateY(0);
+      .btn-futuristic:hover {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+        transform: translateY(-2px);
+      }
+      .btn-futuristic::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+      }
+      .btn-futuristic:hover::before {
+        left: 100%;
+      }
+      
+      .btn-glow-border {
+        position: absolute;
+        inset: -2px;
+        background: linear-gradient(90deg, #10b981, #3b82f6, #10b981);
+        background-size: 200% 100%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .btn-futuristic:hover .btn-glow-border {
+        opacity: 0.5;
+        animation: border-shimmer 2s linear infinite;
+      }
+      @keyframes border-shimmer {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 200% 0%; }
+      }
+
+      /* Floating HUD Chat */
+      .chat-hud {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 100;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+      }
+      .chat-hud:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+      }
+      .chat-hud-scanner {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(transparent, rgba(16, 185, 129, 0.2), transparent);
+        animation: scan-line 2s linear infinite;
+        pointer-events: none;
       }
     </style>
 </head>
@@ -96,9 +154,11 @@
                 <div class="absolute top-[40%] left-[20%] w-[40%] md:w-[20%] h-[20%] bg-green-600/5 rounded-full blur-[100px] animate-blob-3"></div>
             </div>
 
-            <!-- Butang Telegram Terapung (Mudah Alih Sahaja) -->
-            <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-4 z-50 bg-blue-500 hover:bg-blue-600 text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-transform hover:scale-110 md:hidden flex items-center justify-center animate-bounce">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            <!-- Butang HUD Terapung Futuristik (Akses Komuniti) -->
+            <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener noreferrer" class="chat-hud md:hidden">
+                <div class="chat-hud-scanner"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>
+                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
             </a>
 
             <main class="relative z-10">
@@ -123,9 +183,10 @@
                     <div class="mb-10 max-w-4xl mx-auto w-full px-2 md:px-4 animate-float-y">
                         <img alt="VRS EA Performance Data" class="w-full h-auto drop-shadow-2xl rounded-xl md:rounded-2xl border border-slate-700/50" src="https://i.postimg.cc/x8hy4smr/CANVA_RK_PRO_(10).png">
                     </div>
-                    <a href="#copytrade-offer" class="md:hidden inline-flex justify-center items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold px-8 py-4 rounded-full shadow-lg shadow-blue-500/25 w-full sm:w-auto">
-                        Mula Sekarang
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+                    <a href="#copytrade-offer" class="btn-futuristic md:hidden flex justify-center items-center gap-3 font-bold px-10 py-5 rounded-xl w-full sm:w-auto text-green-400 tracking-widest uppercase text-sm border-b-2 border-green-500/50">
+                        <div class="btn-glow-border"></div>
+                        Akses Terminal
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                     </a>
                 </section>
 
@@ -899,7 +960,7 @@
                     <div class="max-w-6xl mx-auto relative z-10">
                         <div class="text-center mb-16 md:mb-20">
                             <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm" style="opacity: 1; transform: none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map w-4 h-4 text-blue-400"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 3 19.381V6.618a1 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map w-4 h-4 text-blue-400"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 21 4.619v12.764a1 1-.553.894l-4.553 2.277a2 2 0 0 1 1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 3 19.381V6.618a1 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg>
                                 <span class="text-blue-400 text-xs font-bold uppercase tracking-wider">Hala Tuju Kami</span>
                             </div>
                             <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight tracking-tight">Visual Roadmap: <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Visi Jangka Panjang VRS EA</span></h2>
@@ -922,7 +983,7 @@
                                 </div>
                                 <div class="bg-slate-800/40 border border-slate-700/50 rounded-3xl p-6 md:p-8 hover:bg-slate-800/60 transition-colors">
                                     <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-6 h-6 text-blue-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-6 h-6 text-blue-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 20 4v10a1 1 5 19 5a1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
                                     </div>
                                     <h4 class="text-lg font-bold text-white mb-2">Fokus Keselamatan</h4>
                                     <p class="text-slate-400 text-sm md:text-base leading-relaxed">Prioriti nombor satu: Melindungi modal (Capital Preservation) dan mengekalkan <span class="text-blue-400 font-bold">Drawdown minimum</span>.</p>
@@ -983,7 +1044,7 @@
                     <div class="max-w-5xl mx-auto relative z-10">
                         <div class="text-center mb-12 md:mb-16">
                             <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-handshake w-4 h-4 text-emerald-400"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-handshake w-4 h-4 text-emerald-400"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 3-3"></path><path d="M3 4h8"></path></svg>
                                 <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Polisi Adil (Fair Play)</span>
                             </div>
                             <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight tracking-tight">Perkongsian Menang-Menang: <br class="hidden md:block"><span class="text-emerald-400">"Anda Untung Besar, Kami Tumpang Sedikit"</span></h2>
@@ -1114,16 +1175,15 @@
                                 </div>
                             </div>
                             
-                            <!-- Butang Komuniti -->
+                            <!-- Butang Komuniti Futuristik -->
                             <div class="relative flex flex-col items-center justify-center w-full mt-8 md:mt-12">
-                                <!-- Butang Telegram -->
-                                <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto group relative inline-flex justify-center items-center gap-2 sm:gap-3 px-4 sm:px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl font-black text-base sm:text-lg md:text-xl text-white shadow-[0_10px_20px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_20px_30px_-10px_rgba(59,130,246,0.6)] hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer tracking-wide">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send w-6 h-6 md:w-7 md:h-7 relative z-10 flex-shrink-0 animate-bounce"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
-                                    <span class="relative z-10 text-center leading-tight">Join Group Copytrade VRS EA</span>
-                                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-2xl"></div>
+                                <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener noreferrer" class="btn-futuristic w-full sm:w-auto flex justify-center items-center gap-4 px-10 md:px-16 py-6 rounded-2xl font-black text-lg md:text-xl text-green-400 shadow-2xl tracking-widest uppercase border-b-4 border-green-500/50">
+                                    <div class="btn-glow-border"></div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                    Berminat? Klik Disini Sekarang
                                 </a>
 
-                                <p class="text-slate-400 text-sm md:text-base mt-6">Sertai komuniti kami dan mula bina pendapatan pasif hari ini.</p>
+                                <p class="text-slate-400 text-sm md:text-base mt-8 opacity-70 italic">Klik butang di atas untuk akses terminal komuniti eksklusif kami.</p>
                             </div>
                         </div>
                     </div>
