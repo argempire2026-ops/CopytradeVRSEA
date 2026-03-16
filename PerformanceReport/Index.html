@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VRS EA Terminal - High Performance</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ffa3;
+            --neon-red: #ff3b69;
+            --bg-dark: #020203;
+        }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: white; 
+            overflow-x: hidden;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .neon-green { color: var(--neon-green); filter: drop-shadow(0 0 8px rgba(0, 255, 163, 0.4)); }
+        .neon-red { color: var(--neon-red); filter: drop-shadow(0 0 8px rgba(255, 59, 105, 0.4)); }
+        
+        /* Digital Trading Grid Background */
+        .trading-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, #0a0a14 0%, #020203 100%),
+                linear-gradient(rgba(0, 255, 163, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 163, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 45px 45px, 45px 45px;
+            overflow: hidden;
+        }
+
+        /* Dropdown Visibility Fix */
+        select option {
+            background-color: #121216 !important;
+            color: white !important;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 150px;
+            z-index: 5;
+            background: linear-gradient(0deg, rgba(0, 255, 163, 0) 0%, rgba(0, 255, 163, 0.01) 50%, rgba(0, 255, 163, 0) 100%);
+            position: fixed;
+            top: -150px;
+            animation: scan 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: -150px; }
+            100% { top: 100vh; }
+        }
+
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: rgba(8, 8, 10, 0.98);
+            border-bottom: 1px solid rgba(0, 255, 163, 0.08);
+            white-space: nowrap;
+            backdrop-filter: blur(20px);
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 45s linear infinite;
+            padding: 12px 0;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .glass-panel {
+            background: rgba(14, 14, 18, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon-green);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 13px;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 255, 163, 0.4);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from { transform: translate(-50%, 50px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+
+        .calendar-cell {
+            min-height: 60px;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid transparent;
+        }
+        
+        .glow-pulse {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 163, 0.05); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 163, 0.15); }
+        }
+
+        .config-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .config-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .config-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 163, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Profit & Loss Animations */
+        .path-draw {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 2s ease-out forwards infinite;
+        }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .float-icon {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root" class="relative z-10"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef } = React;
+
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZMT9Ri0OsIS7Qxkpvonx7CQHAFUQjfp26m8yI9IcOxFUzmbdLkCDQJXjDPmceQrgu/exec";
+        const CACHE_KEY = "vrs_terminal_cache_v5_english";
+        const LOGO_URL = "https://i.postimg.cc/Jz4PC4jG/CANVA-RK-PRO-(11).png";
+
+        const MarketTicker = () => {
+            const pairs = ["XAUUSD +1.24%", "EURUSD +0.24%", "BTCUSD +4.45%", "NAS100 -0.12%", "GBPUSD +0.05%", "VRS EA ACTIVE", "NODE_STABLE", "LIVE_SYNC"];
+            return (
+                <div className="ticker-wrap no-select sticky top-0 z-50">
+                    <div className="ticker-content">
+                        {[...pairs, ...pairs].map((text, i) => (
+                            <span key={i} className="mx-6 text-[11px] font-bold tracking-widest uppercase text-zinc-500 mono">
+                                {text.includes('+') ? <span className="text-[#00ffa3]">▲ {text}</span> : text.includes('-') ? <span className="text-[#ff3b69]">▼ {text}</span> : text}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [data, setData] = useState([]);
+            const [isAdmin, setIsAdmin] = useState(false);
+            const [showLoginModal, setShowLoginModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [loginError, setLoginError] = useState('');
+            const [editingItem, setEditingItem] = useState(null);
+            const [editForm, setEditForm] = useState({ pl: '', percent: '' });
+            const [toast, setToast] = useState('');
+            const [equity, setEquity] = useState(1000);
+            const [withdrawal, setWithdrawal] = useState(0);
+            const [month, setMonth] = useState('February');
+            const [year, setYear] = useState(2025);
+            const [currency, setCurrency] = useState('USD');
+            const [broker, setBroker] = useState('VRS Broker');
+            const [invId, setInvId] = useState('');
+            const [invServer, setInvServer] = useState('');
+            const [invPass, setInvPass] = useState('');
+            const [monthlyPL, setMonthlyPL] = useState({
+                janPL: 0, febPL: 0, marPL: 0, aprPL: 0, mayPL: 0, junPL: 0,
+                julPL: 0, augPL: 0, sepPL: 0, octPL: 0, novPL: 0, decPL: 0
+            });
+            const [showSettingsModal, setShowSettingsModal] = useState(false);
+            const [settingsForm, setSettingsForm] = useState({});
+            const [isLoading, setIsLoading] = useState(false);
+            const [syncStatus, setSyncStatus] = useState('');
+            const [clickCount, setClickCount] = useState(0);
+            const [showAdminTrigger, setShowAdminTrigger] = useState(false);
+            
+            const isUpdatingRef = useRef(false);
+            const timerRef = useRef(null);
+
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            const getDaysInMonth = (m, y) => new Date(y, new Date(`${m} 1, ${y}`).getMonth() + 1, 0).getDate();
+            const getStartDayOfMonth = (m, y) => new Date(`${m} 1, ${y}`).getDay();
+
+            const calendarMonthPL = useMemo(() => {
+                return data.reduce((sum, item) => {
+                    const val = Number(item.pl);
+                    return sum + (isNaN(val) ? 0 : val);
+                }, 0);
+            }, [data]);
+
+            const manualHistoryPL = useMemo(() => {
+                return Object.values(monthlyPL).reduce((a, b) => Number(a) + Number(b), 0);
+            }, [monthlyPL]);
+
+            const currentBalance = useMemo(() => {
+                return Number(equity) + manualHistoryPL + calendarMonthPL - Number(withdrawal);
+            }, [equity, manualHistoryPL, calendarMonthPL, withdrawal]);
+
+            const totalROI = useMemo(() => {
+                const initial = Number(equity);
+                if (initial <= 0) return 0;
+                return ((manualHistoryPL + calendarMonthPL) / initial) * 100;
+            }, [manualHistoryPL, calendarMonthPL, equity]);
+
+            const analytics = useMemo(() => {
+                const trades = data.filter(i => i.pl !== null && i.pl !== "");
+                const wins = trades.filter(i => Number(i.pl) > 0);
+                const winRate = trades.length > 0 ? (wins.length / trades.length) * 100 : 0;
+                return { winRate };
+            }, [data]);
+
+            useEffect(() => {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    try {
+                        const parsed = JSON.parse(cached);
+                        if (parsed.data) setData(parsed.data);
+                        if (parsed.settings) applySettings(parsed.settings);
+                    } catch (e) {}
+                }
+                fetchData(); 
+            }, []);
+
+            const applySettings = (s) => {
+                setEquity(Number(s.equity) || 0);
+                setWithdrawal(Number(s.withdrawal) || 0);
+                setMonth(s.month || 'February');
+                setYear(Number(s.year) || 2025);
+                setCurrency(s.currency || 'USD');
+                setBroker(s.broker || 'VRS Broker');
+                setInvId(s.invId || '');
+                setInvServer(s.invServer || '');
+                setInvPass(s.invPass || '');
+                setMonthlyPL({
+                    janPL: Number(s.janPL) || 0, febPL: Number(s.febPL) || 0, marPL: Number(s.marPL) || 0,
+                    aprPL: Number(s.aprPL) || 0, mayPL: Number(s.mayPL) || 0, junPL: Number(s.junPL) || 0,
+                    julPL: Number(s.julPL) || 0, augPL: Number(s.augPL) || 0, sepPL: Number(s.sepPL) || 0,
+                    octPL: Number(s.octPL) || 0, novPL: Number(s.novPL) || 0, decPL: Number(s.decPL) || 0
+                });
+            };
+
+            const fetchData = () => {
+                if (isUpdatingRef.current) return;
+                setIsLoading(true);
+                setSyncStatus('SYNCING');
+                fetch(SCRIPT_URL + "?timestamp=" + new Date().getTime())
+                    .then(res => res.json())
+                    .then(result => {
+                        if (isUpdatingRef.current) return;
+                        if (result.data) {
+                            const updatedData = result.data.filter(i => i.date).map(item => ({
+                                ...item,
+                                date: Number(item.date),
+                                pl: item.pl === "" || item.pl === null ? null : Number(item.pl),
+                                percent: item.percent === "" || item.percent === null ? null : Number(item.percent)
+                            })).sort((a, b) => a.date - b.date);
+                            setData(updatedData);
+                            localStorage.setItem(CACHE_KEY, JSON.stringify({ data: updatedData, settings: result.settings }));
+                        }
+                        if (result.settings) applySettings(result.settings);
+                        setIsLoading(false);
+                        setSyncStatus('LIVE');
+                        setTimeout(() => setSyncStatus(''), 3000);
+                    })
+                    .catch(() => {
+                        setSyncStatus('OFFLINE');
+                        setIsLoading(false);
+                    });
+            };
+
+            const sendToGas = async (payload) => {
+                isUpdatingRef.current = true;
+                setSyncStatus('UPDATING');
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    });
+                    setSyncStatus('SUCCESS');
+                    setTimeout(() => {
+                        setSyncStatus('');
+                        isUpdatingRef.current = false;
+                    }, 4000); 
+                    return true;
+                } catch {
+                    setSyncStatus('FAILED');
+                    isUpdatingRef.current = false;
+                    return false;
+                }
+            };
+
+            const handleSaveSettings = async () => {
+                const s = settingsForm;
+                applySettings(s);
+                setShowSettingsModal(false);
+                await sendToGas({ action: 'updateSettings', ...s });
+            };
+
+            const handleLogoClick = () => {
+                const newCount = clickCount + 1;
+                setClickCount(newCount);
+                if (timerRef.current) clearTimeout(timerRef.current);
+                if (newCount === 3) {
+                    setShowAdminTrigger(true);
+                    setClickCount(0);
+                    setTimeout(() => { if (!isAdmin) setShowAdminTrigger(false); }, 15000);
+                } else {
+                    timerRef.current = setTimeout(() => { setClickCount(0); }, 1000);
+                }
+            };
+
+            const copyToClipboard = (text, label) => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                setToast(`${label} copied!`);
+                setTimeout(() => setToast(''), 2500);
+            };
+
+            const formatValue = (v) => {
+                if (v === null || v === '' || isNaN(v)) return null;
+                const num = Number(v);
+                return (num >= 0 ? '+' : '') + num.toFixed(2);
+            };
+
+            const calendarGrid = useMemo(() => {
+                const grid = [];
+                const start = getStartDayOfMonth(month, year);
+                const daysInMonth = getDaysInMonth(month, year);
+                for (let i = 0; i < start; i++) grid.push({ isBlank: true });
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const found = data.find(d => Number(d.date) === i);
+                    grid.push(found || { date: i, pl: null, percent: null });
+                }
+                return grid;
+            }, [data, month, year]);
+
+            return (
+                <div className="min-h-screen flex flex-col items-center relative overflow-hidden text-white selection:bg-[#00ffa3]/20">
+                    <div className="trading-bg"></div>
+                    <div className="scanline"></div>
+                    <MarketTicker />
+                    
+                    {toast && <div className="copy-toast no-select">{toast}</div>}
+
+                    <div className="w-full max-w-[480px] p-2.5 sm:p-6 pb-20 relative z-10">
+                        <div className="glass-panel w-full rounded-[35px] sm:rounded-[45px] overflow-hidden relative">
+                            
+                            <div className="bg-[#121216]/90 p-6 sm:p-8 border-b border-white/5 relative text-white">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00ffa3]/30 to-transparent"></div>
+                                <div className="flex justify-between items-center mb-6">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] animate-pulse shadow-[0_0_10px_#00ffa3]"></div>
+                                        <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-black mono">Terminal Active</span>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        {(showAdminTrigger || isAdmin) && (
+                                            <React.Fragment>
+                                                {isAdmin && (
+                                                    <button onClick={() => { 
+                                                        setSettingsForm({ month, year, currency, equity, broker, invId, invServer, invPass, withdrawal, ...monthlyPL });
+                                                        setShowSettingsModal(true); 
+                                                    }} className="p-2.5 rounded-xl bg-white/5 text-zinc-400 active:scale-90 transition-all hover:bg-white/10">⚙️</button>
+                                                )}
+                                                <button onClick={() => isAdmin ? setIsAdmin(false) : setShowLoginModal(true)} className={`p-2.5 rounded-xl transition-all active:scale-90 ${isAdmin ? 'bg-[#ff3b69]/20 text-[#ff3b69]' : 'bg-white/5 text-zinc-400 hover:bg-white/10'}`}>
+                                                    {isAdmin ? '🔓' : '🔒'}
+                                                </button>
+                                            </React.Fragment>
+                                        )}
+                                    </div>
+                                </div>
+                                
+                                <div className="flex flex-col items-center text-center">
+                                    <div className="relative mb-4">
+                                        <div className="absolute inset-0 bg-[#00ffa3]/10 blur-xl rounded-full"></div>
+                                        <img src={LOGO_URL} alt="Logo" onClick={handleLogoClick} className="h-16 sm:h-20 w-auto object-contain relative active:scale-95 transition-transform cursor-pointer no-select" />
+                                    </div>
+                                    <h1 className="text-xl sm:text-2xl font-black bg-gradient-to-b from-white via-white to-zinc-600 bg-clip-text text-transparent uppercase tracking-tight leading-tight mb-2">Performance Report</h1>
+                                    <div className="px-5 py-1.5 bg-[#00ffa3]/5 rounded-full border border-[#00ffa3]/10 inline-flex items-center gap-2">
+                                        <span className="text-[9px] font-black text-[#00ffa3] uppercase tracking-[0.2em]">{broker}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-5 sm:p-9 space-y-6">
+                                {/* MAIN EQUITY CARD WITH PROFIT/LOSS ANIMATION */}
+                                <div className="bg-gradient-to-br from-[#1a1a22] to-[#0f0f12] rounded-[28px] p-7 border border-white/5 glow-pulse relative overflow-hidden shadow-2xl flex justify-between items-center">
+                                    <div className="absolute top-[-20%] right-[-10%] w-40 h-40 bg-[#00ffa3]/5 blur-[60px] rounded-full"></div>
+                                    
+                                    <div className="relative z-10 flex-1">
+                                        <div className="text-[10px] uppercase text-zinc-500 font-black tracking-[0.2em] mb-1 mono">Global Equity Balance</div>
+                                        <div className="text-3xl sm:text-4xl font-black tracking-tighter text-white mono mb-4">
+                                            {currentBalance.toLocaleString()} <span className="text-sm font-bold text-zinc-600">{currency}</span>
+                                        </div>
+                                        <div className="flex gap-6">
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] uppercase text-zinc-600 font-black tracking-widest">Win Rate</span>
+                                                <span className="text-sm font-black text-[#00ffa3]">{analytics.winRate.toFixed(1)}%</span>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] uppercase text-zinc-600 font-black tracking-widest">Growth ROI</span>
+                                                <span className={`text-sm font-black mono ${totalROI >= 0 ? 'text-[#00ffa3]' : 'text-[#ff3b69]'}`}>{totalROI.toFixed(2)}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* DYNAMIC PROFIT/LOSS ANIMATION SIDE */}
+                                    <div className="relative z-20 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                                        {totalROI >= 0 ? (
+                                            <div className="float-icon">
+                                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="var(--neon-green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
+                                                    <path d="M17 6H23V12" stroke="var(--neon-green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
+                                                </svg>
+                                                <div className="absolute inset-0 bg-[#00ffa3]/20 blur-xl rounded-full animate-pulse"></div>
+                                            </div>
+                                        ) : (
+                                            <div className="float-icon">
+                                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23 18L13.5 8.5L8.5 13.5L1 6" stroke="var(--neon-red)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
+                                                    <path d="M17 18H23V12" stroke="var(--neon-red)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
+                                                </svg>
+                                                <div className="absolute inset-0 bg-[#ff3b69]/20 blur-xl rounded-full animate-pulse"></div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="bg-black/40 rounded-[24px] p-5 border border-white/5 relative group text-white">
+                                    <div className="text-[10px] uppercase text-zinc-500 font-black tracking-[0.2em] mb-4 flex items-center gap-2">
+                                        <div className="w-2 h-2 bg-[#00ffa3] rounded-full shadow-[0_0_8px_#00ffa3]"></div>
+                                        METATRADER 4 Login (Read-Only)
+                                    </div>
+                                    <div className="space-y-2">
+                                        {[
+                                            { label: "Login ID", value: invId },
+                                            { label: "Server", value: invServer },
+                                            { label: "Password", value: invPass }
+                                        ].map((item, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                onClick={() => copyToClipboard(item.value, item.label)}
+                                                className="copy-card flex justify-between items-center p-3.5 rounded-xl border border-white/[0.03] bg-white/[0.02] cursor-pointer transition-all active:scale-[0.98]"
+                                            >
+                                                <span className="text-[10px] text-zinc-500 font-bold uppercase">{item.label}</span>
+                                                <div className="flex items-center gap-3 overflow-hidden text-white">
+                                                    <span className="text-xs font-black text-white mono truncate tracking-wider">{item.value || 'N/A'}</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-600 group-hover:text-[#00ffa3] transition-colors flex-shrink-0">
+                                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-4">
+                                    <div className="bg-[#1a1a1e]/40 p-5 rounded-[22px] border border-white/5">
+                                        <div className="text-[9px] uppercase text-zinc-600 font-black mb-1 tracking-widest text-center">{month.substring(0,3)} P/L</div>
+                                        <div className={`text-xl font-black mono text-center ${calendarMonthPL >= 0 ? 'text-[#00ffa3]' : 'text-[#ff3b69]'}`}>{formatValue(calendarMonthPL)}</div>
+                                    </div>
+                                </div>
+
+                                <div className="pt-4">
+                                    <div className="flex justify-between items-center mb-5 px-1">
+                                        <div className="text-[12px] font-black tracking-widest uppercase text-white flex items-center gap-2">
+                                            <span className="w-4 h-[2px] bg-[#00ffa3]"></span>
+                                            {month} {year}
+                                        </div>
+                                        {(isLoading || syncStatus) && (
+                                            <div className="text-[9px] font-black text-[#00ffa3] tracking-widest mono bg-[#00ffa3]/5 px-3 py-1 rounded-lg border border-[#00ffa3]/10 animate-pulse uppercase">
+                                                {syncStatus || 'SYNCING'}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="no-select">
+                                        <div className="grid grid-cols-7 mb-4 text-center text-[9px] font-black text-zinc-700 uppercase mono">
+                                            {daysOfWeek.map(d => <div key={d}>{d}</div>)}
+                                        </div>
+                                        <div className="grid grid-cols-7 gap-1.5">
+                                            {calendarGrid.map((item, i) => (
+                                                <div key={i} onClick={() => !item.isBlank && isAdmin && (setEditingItem(item), setEditForm({ pl: item.pl !== null ? item.pl : '', percent: item.percent !== null ? item.percent : '' }))}
+                                                    className={`calendar-cell border border-transparent transition-all duration-300 ${!item.isBlank && isAdmin ? 'cursor-pointer hover:border-[#00ffa3]/30 active:scale-90' : ''}`}>
+                                                    {!item.isBlank && (
+                                                        <React.Fragment>
+                                                            <span className={`text-[12px] font-bold mb-1 ${item.pl !== null ? 'text-zinc-100' : 'text-zinc-800'}`}>{item.date}</span>
+                                                            {item.pl !== null && (
+                                                                <div className="flex flex-col items-center w-full text-center">
+                                                                    <div className={`w-[80%] h-[1.5px] mb-1 ${Number(item.pl) >= 0 ? 'bg-[#00ffa3]/40' : 'bg-[#ff3b69]/40'}`}></div>
+                                                                    <span className={`text-[6.5px] font-black uppercase tracking-tighter ${Number(item.pl) >= 0 ? 'text-[#00ffa3]' : 'text-[#ff3b69]'}`}>
+                                                                        {Number(item.pl) >= 0 ? 'PROFIT' : 'LOSS'}
+                                                                    </span>
+                                                                    <span className={`text-[9px] font-bold tracking-tighter ${Number(item.pl) >= 0 ? 'text-[#00ffa3]' : 'text-[#ff3b69]'} mono`}>
+                                                                        {formatValue(item.pl)}
+                                                                    </span>
+                                                                </div>
+                                                            )}
+                                                        </React.Fragment>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-6 bg-white/[0.01] text-center border-t border-white/5">
+                                <p className="text-[9px] text-zinc-800 font-black uppercase tracking-[0.8em] mono">VRS-TERMINAL-NODE-V8</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Authentication Modal */}
+                    {showLoginModal && (
+                        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-6 z-[100] backdrop-blur-xl text-white">
+                            <div className="bg-[#16161a] p-10 rounded-[40px] border border-white/10 w-full max-w-[320px] text-center shadow-2xl relative text-white">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00ffa3] to-transparent"></div>
+                                <div className="w-16 h-16 rounded-3xl bg-[#00ffa3]/10 flex items-center justify-center mx-auto mb-8 text-xl border border-white/5 text-white">🔒</div>
+                                <h3 className="text-xl font-black mb-8 uppercase tracking-tighter mono">Authenticate</h3>
+                                <input type="password" value={passwordInput} onChange={e => setPasswordInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && (passwordInput === "admin123" ? (setIsAdmin(true), setShowLoginModal(false)) : setLoginError("INVALID_KEY"))}
+                                    className="w-full bg-black text-white p-5 rounded-2xl border border-white/5 outline-none mb-2 text-center tracking-[0.6em] focus:border-[#00ffa3] transition-all mono" placeholder="••••••" autoFocus />
+                                {loginError && <p className="text-[#ff3b69] text-[10px] font-bold uppercase mb-4 tracking-widest">{loginError}</p>}
+                                <button onClick={() => passwordInput === "admin123" ? (setIsAdmin(true), setShowLoginModal(false)) : setLoginError("INVALID_KEY")} className="w-full py-5 rounded-2xl bg-[#00ffa3] text-black font-black uppercase tracking-widest shadow-lg active:scale-95 transition-all">Authorize</button>
+                                <button onClick={() => { setShowLoginModal(false); setShowAdminTrigger(false); }} className="mt-5 text-zinc-600 text-[11px] font-bold uppercase hover:text-white transition-colors">Discard</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Daily Edit Modal */}
+                    {editingItem && (
+                        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-6 z-[100] backdrop-blur-xl text-white">
+                            <div className="bg-[#16161a] p-8 rounded-[40px] border border-white/10 w-full max-w-[360px]">
+                                <h3 className="text-lg font-black mb-10 uppercase tracking-tighter mono">Update Day {editingItem.date}</h3>
+                                <div className="space-y-6 text-white">
+                                    <input type="number" value={editForm.pl} onChange={e => setEditForm({...editForm, pl: e.target.value, percent: e.target.value ? ((Number(e.target.value) / (Number(equity) || 1)) * 100).toFixed(2) : ''})}
+                                        className="w-full bg-black text-white p-5 rounded-2xl border border-white/5 outline-none text-xl font-black focus:border-[#00ffa3] transition-all mono" placeholder="Amount" />
+                                    <input type="number" value={editForm.percent} onChange={e => setEditForm({...editForm, percent: e.target.value})}
+                                        className="w-full bg-black text-white p-5 rounded-2xl border border-white/5 outline-none text-xl font-black focus:border-[#00ffa3] transition-all mono" placeholder="ROI %" />
+                                </div>
+                                <div className="flex gap-4 mt-12">
+                                    <button onClick={() => setEditingItem(null)} className="flex-1 text-zinc-500 font-black uppercase">Discard</button>
+                                    <button onClick={async () => {
+                                        const plVal = editForm.pl === '' ? null : Number(editForm.pl);
+                                        const pctVal = editForm.percent === '' ? null : Number(editForm.percent);
+                                        const newData = data.map(d => d.date === editingItem.date ? { ...d, pl: plVal, percent: pctVal } : d);
+                                        setData(newData); setEditingItem(null);
+                                        await sendToGas({ action: 'updateDay', date: editingItem.date, pl: plVal, percent: pctVal });
+                                    }} className="flex-1 py-5 rounded-2xl bg-[#00ffa3] text-black font-black uppercase shadow-lg">Commit</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Admin Panel (System Config) */}
+                    {showSettingsModal && (
+                        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-[100] backdrop-blur-2xl text-white">
+                            <div className="bg-[#0e0e11] p-6 sm:p-10 rounded-[45px] border border-white/10 w-full max-w-[460px] max-h-[90vh] overflow-y-auto config-scroll shadow-3xl">
+                                <div className="flex flex-col items-center mb-10 text-center">
+                                    <div className="w-16 h-16 rounded-full bg-[#00ffa3]/5 flex items-center justify-center text-[#00ffa3] border border-[#00ffa3]/10 mb-4">⚙️</div>
+                                    <h3 className="text-2xl font-black uppercase tracking-tighter mono">System Config</h3>
+                                    <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest mt-1">Terminal Master Control</p>
+                                </div>
+
+                                <div className="space-y-10">
+                                    {/* CORE EQUITY BALANCE */}
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] uppercase text-[#00ffa3] font-black tracking-[0.2em] flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full"></span>
+                                            Core Equity Balance
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="bg-black/40 p-4 rounded-2xl border border-white/5 group focus-within:border-[#00ffa3]/40 transition-colors">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Base Capital</span>
+                                                <input type="number" value={settingsForm.equity} onChange={e => setSettingsForm({...settingsForm, equity: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-lg mono" />
+                                            </div>
+                                            <div className="bg-black/40 p-4 rounded-2xl border border-white/5 group focus-within:border-[#ff3b69]/40 transition-colors">
+                                                <span className="text-[8px] text-[#ff3b69]/80 font-black uppercase block mb-1">Withdrawn</span>
+                                                <input type="number" value={settingsForm.withdrawal} onChange={e => setSettingsForm({...settingsForm, withdrawal: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-lg mono" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* ANNUAL LEDGER (MANUAL) */}
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] uppercase text-zinc-500 font-black tracking-[0.2em] flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span>
+                                            Annual P/L Ledger (Manual)
+                                        </label>
+                                        <div className="bg-black/20 p-5 rounded-[30px] border border-white/[0.03]">
+                                            <div className="grid grid-cols-3 gap-3">
+                                                {['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].map(m => (
+                                                    <div key={m} className="bg-black/40 p-2.5 rounded-xl border border-white/5 focus-within:border-[#00ffa3]/20 transition-all">
+                                                        <span className="text-[8px] font-black uppercase text-zinc-700 block mb-1 mono">{m}</span>
+                                                        <input type="number" placeholder="0" value={settingsForm[m + 'PL']} onChange={e => setSettingsForm({...settingsForm, [m + 'PL']: e.target.value})} 
+                                                            className="w-full bg-transparent text-white outline-none text-[11px] font-black mono" />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* SYSTEM IDENTITY */}
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] uppercase text-zinc-500 font-black tracking-[0.2em] flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span>
+                                            System Identity
+                                        </label>
+                                        <div className="space-y-3">
+                                            <div className="bg-black/40 p-4 rounded-2xl border border-white/5">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Broker Name</span>
+                                                <input type="text" placeholder="Broker" value={settingsForm.broker} onChange={e => setSettingsForm({...settingsForm, broker: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-base mono" />
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="bg-black/40 p-4 rounded-2xl border border-white/5">
+                                                    <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Currency</span>
+                                                    <select value={settingsForm.currency} onChange={e => setSettingsForm({...settingsForm, currency: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-base mono appearance-none">
+                                                        <option value="USD">USD ($)</option>
+                                                        <option value="USC">USC (¢)</option>
+                                                    </select>
+                                                </div>
+                                                <div className="bg-black/40 p-4 rounded-2xl border border-white/5">
+                                                    <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Year</span>
+                                                    <input type="number" value={settingsForm.year} onChange={e => setSettingsForm({...settingsForm, year: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-base mono" />
+                                                </div>
+                                            </div>
+                                            <div className="bg-black/40 p-4 rounded-2xl border border-white/5">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Active Month</span>
+                                                <select value={settingsForm.month} onChange={e => setSettingsForm({...settingsForm, month: e.target.value})} className="w-full bg-transparent text-white outline-none font-bold text-base mono appearance-none">
+                                                    {["January","February","March","April","May","June","July","August","September","October","November","December"].map(m => <option key={m} value={m}>{m}</option>)}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* INVESTOR CREDENTIALS */}
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] uppercase text-[#00ffa3] font-black tracking-[0.2em] flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full"></span>
+                                            MetaTrader 4 Login Details
+                                        </label>
+                                        <div className="bg-[#00ffa3]/5 p-5 rounded-[30px] border border-[#00ffa3]/10 space-y-4 shadow-inner">
+                                            <div className="bg-black/40 p-3.5 rounded-xl border border-white/5">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Login ID</span>
+                                                <input type="text" placeholder="30XXXXX" value={settingsForm.invId} onChange={e => setSettingsForm({...settingsForm, invId: e.target.value})} className="w-full bg-transparent text-white outline-none text-sm font-bold mono" />
+                                            </div>
+                                            <div className="bg-black/40 p-3.5 rounded-xl border border-white/5">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Server Name</span>
+                                                <input type="text" placeholder="ErranteSC-Real2" value={settingsForm.invServer} onChange={e => setSettingsForm({...settingsForm, invServer: e.target.value})} className="w-full bg-transparent text-white outline-none text-sm font-bold mono" />
+                                            </div>
+                                            <div className="bg-black/40 p-3.5 rounded-xl border border-white/5">
+                                                <span className="text-[8px] text-zinc-600 font-black uppercase block mb-1">Investor Password</span>
+                                                <input type="text" placeholder="Pass123" value={settingsForm.invPass} onChange={e => setSettingsForm({...settingsForm, invPass: e.target.value})} className="w-full bg-transparent text-white outline-none text-sm font-bold mono" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4 mt-12 pb-6 text-white text-white">
+                                    <button onClick={() => setShowSettingsModal(false)} className="flex-1 text-zinc-600 font-black py-5 uppercase text-xs hover:text-white transition-colors">Discard</button>
+                                    <button onClick={handleSaveSettings} className="flex-1 py-5 rounded-[22px] bg-[#00ffa3] text-[#020203] font-black uppercase shadow-[0_0_30px_rgba(0,255,163,0.3)] text-xs active:scale-95 transition-all">Deploy Configuration</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
