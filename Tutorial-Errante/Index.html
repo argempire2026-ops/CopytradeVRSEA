@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan ERRANTE - Pusat Pembelajaran Dagangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --errante-blue: #0b2140;
+            --errante-red: #e62b32;
+            --errante-dark: #07162b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--errante-dark);
+            color: #ffffff;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #ffffff, var(--errante-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            border-color: var(--errante-red);
+            box-shadow: 0 20px 40px -15px rgba(230, 43, 50, 0.2);
+        }
+
+        .transition-all-custom {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .icon-box {
+            background: linear-gradient(135deg, rgba(230, 43, 50, 0.1), rgba(230, 43, 50, 0.05));
+            border: 1px solid rgba(230, 43, 50, 0.3);
+        }
+
+        .bg-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="selection:bg-red-600 selection:text-white bg-pattern">
+
+    <!-- Header dengan Logo PNG -->
+    <header class="w-full py-10 flex justify-center items-center">
+        <a href="/" class="flex flex-col items-center">
+            <img src="https://i.postimg.cc/QxBXPgf9/0x0-removebg-preview.png" 
+                 alt="Logo ERRANTE PNG" 
+                 class="h-16 md:h-24 object-contain hover:scale-105 transition-transform duration-300"
+                 id="main-logo">
+            <div id="logo-fallback" class="hidden text-3xl font-bold tracking-[0.3em] uppercase">
+                ERRANTE<span class="text-red-600">.</span>
+            </div>
+        </a>
+    </header>
+
+    <script>
+        document.getElementById('main-logo').onerror = function() {
+            this.style.display = 'none';
+            document.getElementById('logo-fallback').style.display = 'block';
+        };
+    </script>
+
+    <!-- Bahagian Hero -->
+    <section class="pt-6 pb-20 px-6 text-center max-w-5xl mx-auto">
+        <div class="inline-block px-4 py-1 mb-6 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold uppercase tracking-widest">
+            Panduan Lengkap ERRANTE
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Kuasai Langkah <br> <span class="gradient-text text-red-500">Buka Akaun Dagangan</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed">
+            Dari pendaftaran profil hingga pembukaan akaun MT4/MT5. Tonton video tutorial untuk memulakan langkah dagangan anda hari ini.
+        </p>
+        
+        <!-- Bar Carian -->
+        <div class="relative max-w-xl mx-auto mb-4">
+            <input type="text" placeholder="Cari langkah atau panduan video..." 
+                   class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-8 focus:outline-none focus:border-red-500 transition-all-custom text-white shadow-2xl">
+            <div class="absolute right-6 top-5 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kandungan Utama (Grid Tutorial) -->
+    <main class="px-6 md:px-12 pb-32 pt-10 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-12 border-l-4 border-red-600 pl-6">
+            <h2 class="text-3xl font-bold">Koleksi Tutorial</h2>
+            <p class="text-gray-500 text-sm hidden md:block tracking-wide uppercase">Pilih kategori untuk bermula</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Tutorial 1: Pendaftaran Profil -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Panduan Pendaftaran</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Langkah pertama mendaftar profil pengguna ERRANTE dan cara melengkapkan dokumen KYC untuk verifikasi akaun.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/1XXG6QQ_SzGJQ8X3vZdgPU2BQqOeXvDul/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Daftar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial 2: Cara Buka Akaun Dagangan -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Cara Buka Akaun</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Tonton cara membuka akaun MT4/MT5 Live atau Demo. Panduan memilih jenis akaun (Standard, Premium, VIP) dan leverage.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/1vBxcCKWvlYy1vrcLiOKIxkWVKCUrSiWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Buka Akaun
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial 3: Deposit -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Cara Deposit Dana</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Panduan visual memasukkan modal ke akaun anda melalui gerbang pembayaran tempatan yang pantas dan selamat.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/1hz50fUcuAqaEURpilPqxWn32XH5_nvJ8/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Deposit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial 4: Withdrawal -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Cara Withdrawal</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Lihat proses pengeluaran keuntungan terus ke akaun bank tempatan anda dengan sistem yang telus.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/1kBK8eV7lMVvGLnV9evoHHurkMMGRT9B2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Withdrawal
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial 5: Request Link IB -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Mohon Link IB</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Langkah visual untuk memohon status Introducing Broker (IB) bagi mula membina komuniti dagangan anda.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/124mBXD-OlE5jxfOy-OjjGq5h7W_Zw20j/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Mohon IB
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial 6: Cari Link IB -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Mencari Link IB</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Di mana anda boleh dapatkan pautan rujukan unik anda untuk dikongsi kepada pelanggan baru? Tonton di sini.
+                </p>
+                <div class="mt-auto">
+                    <a href="https://drive.google.com/file/d/1kNLb0Epr5STr3SvDWIf6J8J8_sp3aO4X/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Tonton Video Lokasi Link
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Kaki Laman -->
+    <footer class="border-t border-white/10 py-16 px-6 md:px-12 bg-[#040d1a]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-start text-center md:text-left mb-16">
+            <div>
+                <div class="text-2xl font-bold mb-4 flex items-center justify-center md:justify-start">
+                    <span class="text-white tracking-widest uppercase text-xl text-red-600">ERRANTE</span><span class="text-red-600">.</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                    Portal tutorial video rasmi komuniti untuk memudahkan urusan dagangan anda bersama ERRANTE.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 text-white uppercase text-xs tracking-widest">Kategori Utama</h4>
+                <ul class="text-gray-500 text-sm space-y-2">
+                    <li><a href="#" class="hover:text-red-400">Pembukaan Akaun Dagangan</a></li>
+                    <li><a href="#" class="hover:text-red-400">Deposit & Withdrawal</a></li>
+                    <li><a href="#" class="hover:text-red-400">Panduan Rakan Niaga IB</a></li>
+                </ul>
+            </div>
+            <div class="text-gray-500 text-sm">
+                <h4 class="font-bold mb-4 text-white uppercase text-xs tracking-widest">Sokongan Video</h4>
+                <p class="leading-relaxed mb-4">
+                    Ada soalan tentang tutorial? Hubungi IB (introducer broker) anda.
+                </p>
+            </div>
+        </div>
+
+        <!-- Blok Penafian Tengah (Centered Disclaimer) -->
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3">Penafian Penting</h4>
+                <p class="text-xs text-gray-400 leading-relaxed italic">
+                    Laman web ini diuruskan sepenuhnya oleh Copytrade VRS EA sebagai inisiatif bantuan komuniti. Sila ambil maklum bahawa portal ini adalah platform panduan bebas dan bukannya laman web rasmi daripada pihak broker.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest">
+            &copy; 2026 ERRANTE VIDEO TUTORIAL. Hak Cipta Terpelihara.
+        </div>
+    </footer>
+
+</body>
+</html>
