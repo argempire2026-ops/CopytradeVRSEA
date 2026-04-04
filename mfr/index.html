@@ -26,7 +26,7 @@
             background-color: var(--bg-obsidian);
             color: #f8fafc;
             margin: 0;
-            overflow: hidden; /* Lock scroll initially */
+            overflow: hidden; /* Kunci skrol pada mulanya */
             min-height: 100vh;
         }
 
@@ -249,7 +249,7 @@
             color: white;
         }
 
-        /* Gaya Candlestick */
+        /* Gaya Lilin Pasaran */
         .candle {
             position: absolute;
             width: 8px;
@@ -313,7 +313,7 @@
     <div id="chart-canvas"></div>
     <div class="grid-overlay"></div>
 
-    <!-- Modal Panduan Copytrade -->
+    <!-- Modal Panduan Copytrade (Gambar Dikemas Kini) -->
     <div id="copytrade-modal" class="modal-overlay" onclick="closePopup(event)">
         <div class="modal-content w-full max-sm" onclick="event.stopPropagation()">
             <button onclick="closePopup(event)" class="absolute -top-12 right-0 text-neutral-400 hover:text-white transition-colors">
@@ -322,7 +322,7 @@
             <div class="glass-premium rounded-[2rem] p-1.5 border-white/10 shadow-2xl">
                 <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener" class="block group">
                     <img 
-                        src="https://i.postimg.cc/vHJVkPbn/1-Klik-Join-Copytrade-VRS-EA-2-Klik-3-Dot-3-Klik-Open-in-browser-(6).png" 
+                        src="https://i.postimg.cc/qMxcsq7y/buatkan-gambar-ini-202604041706.jpg" 
                         alt="Join Telegram" 
                         class="w-full h-auto rounded-[1.8rem]"
                     >
@@ -351,7 +351,7 @@
                 </h1>
                 <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-xl bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
                     <i data-lucide="trending-up" class="w-3.5 h-3.5 text-cyan-400"></i>
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400 mono">RAKAN KONGSI</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">RAKAN KONGSI</span>
                 </div>
             </div>
 
@@ -412,7 +412,7 @@
                 </div>
                 <div class="flex flex-col gap-1">
                     <p class="text-[11px] font-black uppercase tracking-[0.5em] text-white">RAKAN KONGSI</p>
-                    <p class="text-[9px] font-medium mono text-neutral-500 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
+                    <p class="text-[9px] font-medium text-neutral-500 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
                 </div>
             </div>
         </footer>
@@ -421,20 +421,15 @@
     <script>
         // --- KAWALAN PINTU & POP-UP ---
         function openGate() {
-            // Tutup pop-up TIDAK jika ia terbuka
             document.getElementById('no-modal').classList.remove('active');
-            
             const wrapper = document.getElementById('gate-wrapper');
             const mainContent = document.getElementById('main-content');
-            
             wrapper.classList.add('opened');
-            
             setTimeout(() => {
                 mainContent.classList.remove('opacity-0');
                 mainContent.classList.add('opacity-100');
                 document.body.style.overflow = 'auto';
             }, 600);
-
             setTimeout(() => {
                 wrapper.style.display = 'none';
             }, 2000);
