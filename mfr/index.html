@@ -14,9 +14,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
         
         :root {
-            --bg-obsidian: #020617;
-            --accent-cyan: #22d3ee;
-            --accent-blue: #3b82f6;
+            /* Palette Dark Blue & Gold */
+            --bg-obsidian: #040f21; /* Dark Blue */
+            --accent-gold: #d4af37; /* Metallic Gold */
+            --accent-dark-gold: #996515; /* Dark Gold */
             --candle-green: #22c55e;
             --candle-red: #ef4444;
         }
@@ -24,7 +25,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-obsidian);
-            color: #f8fafc;
+            color: #ffffff;
             margin: 0;
             overflow: hidden; /* Kunci skrol pada mulanya */
             min-height: 100vh;
@@ -46,7 +47,7 @@
             width: 50%;
             height: 100%;
             background: var(--bg-obsidian);
-            border-bottom: 2px solid var(--accent-cyan);
+            border-bottom: 2px solid var(--accent-gold);
             transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             align-items: center;
@@ -55,16 +56,16 @@
 
         .gate-left {
             left: 0;
-            border-right: 1px solid rgba(34, 211, 238, 0.3);
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
             justify-content: flex-end;
-            background-image: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.05) 100%);
+            background-image: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
         }
 
         .gate-right {
             right: 0;
-            border-left: 1px solid rgba(34, 211, 238, 0.3);
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
             justify-content: flex-start;
-            background-image: linear-gradient(270deg, transparent 0%, rgba(34, 211, 238, 0.05) 100%);
+            background-image: linear-gradient(270deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
         }
 
         #gate-content {
@@ -95,22 +96,22 @@
         }
 
         #ya-btn {
-            background: rgba(34, 211, 238, 0.1);
-            color: var(--accent-cyan);
-            border: 2px solid var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         #ya-btn:hover {
-            background: var(--accent-cyan);
+            background: var(--accent-gold);
             color: #000;
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.5);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
             transform: translateY(-3px);
         }
 
         #tidak-btn {
             background: transparent;
-            color: #64748b;
+            color: #94a3b8;
             border: 2px solid #334155;
         }
 
@@ -125,7 +126,7 @@
             position: fixed;
             inset: 0;
             z-index: -5;
-            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            background: radial-gradient(circle at center, #0a1930 0%, #040f21 100%);
         }
 
         .grid-overlay {
@@ -140,9 +141,9 @@
 
         /* --- KOMPONEN PREMIUM --- */
         .glass-premium {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(10, 18, 35, 0.8);
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.15);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
 
@@ -155,7 +156,7 @@
             content: "";
             position: absolute;
             inset: -1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
             z-index: -1;
             opacity: 0;
             transition: opacity 0.5s;
@@ -167,15 +168,15 @@
         .profile-wrapper {
             position: relative;
             padding: 4px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-dark-gold));
             border-radius: 50%;
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.15);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
         }
 
         .profile-pulse {
             position: absolute;
             inset: -6px;
-            border: 2px solid var(--accent-cyan);
+            border: 2px solid var(--accent-gold);
             border-radius: 50%;
             animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
             opacity: 0.5;
@@ -187,7 +188,7 @@
         }
 
         .shimmer-text {
-            background: linear-gradient(90deg, #f1f5f9, var(--accent-cyan), #f1f5f9);
+            background: linear-gradient(90deg, #ffffff, var(--accent-gold), #ffffff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
@@ -206,14 +207,14 @@
 
         .floating-arrow {
             animation: arrowFloat 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 8px var(--accent-cyan));
+            filter: drop-shadow(0 0 8px var(--accent-gold));
         }
 
         /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(4, 15, 33, 0.95);
             backdrop-filter: blur(20px);
             z-index: 2000;
             display: none;
@@ -236,7 +237,7 @@
         .secondary-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            color: #cbd5e1;
             width: 100%;
             padding: 14px;
             border-radius: 14px;
@@ -274,9 +275,9 @@
         <div class="gate-panel gate-right"></div>
         
         <div id="gate-content">
-            <i data-lucide="shield-check" class="w-16 h-16 text-cyan-400 mx-auto mb-6 opacity-50"></i>
+            <i data-lucide="shield-check" class="w-16 h-16 text-[#d4af37] mx-auto mb-6 opacity-70"></i>
             <h2 class="text-xl font-bold tracking-widest text-white mb-2 uppercase">Akses Terminal</h2>
-            <p class="text-neutral-400 text-sm mb-8 px-4">Adakah anda seorang trader? Sila sahkan untuk masuk ke profil.</p>
+            <p class="text-slate-300 text-sm mb-8 px-4">Adakah anda seorang trader? Sila sahkan untuk masuk ke profil.</p>
             <div class="flex gap-4 justify-center">
                 <button id="ya-btn" class="gate-btn" onclick="openGate()">YA</button>
                 <button id="tidak-btn" class="gate-btn" onclick="showNoPopup()">TIDAK</button>
@@ -286,24 +287,24 @@
 
     <!-- POP-UP "Eh, kejap-kejap!" -->
     <div id="no-modal" class="modal-overlay">
-        <div class="modal-content glass-premium p-8 rounded-[2.5rem] border-white/10 text-center relative">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(37,99,235,0.5)]">
-                <i data-lucide="help-circle" class="w-10 h-10 text-white"></i>
+        <div class="modal-content glass-premium p-8 rounded-[2.5rem] border-[#d4af37]/30 text-center relative">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-[#0a1930] border-2 border-[#d4af37] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+                <i data-lucide="help-circle" class="w-10 h-10 text-[#d4af37]"></i>
             </div>
             
             <h2 class="text-2xl font-bold text-white mb-6 mt-6">🛑 Eh, kejap-kejap!</h2>
             
             <div class="space-y-4 text-left mb-8">
-                <p class="text-neutral-300 text-sm leading-relaxed">
+                <p class="text-slate-200 text-sm leading-relaxed">
                     Belum masuk dunia trading lagi ke? Chill, tak ada hal pun! Pintu kami sentiasa terbuka kalau korang rasa nak mula belajar nanti.
                 </p>
-                <p class="text-neutral-300 text-sm leading-relaxed border-l-2 border-cyan-500 pl-4 py-1 bg-cyan-500/5">
+                <p class="text-slate-200 text-sm leading-relaxed border-l-2 border-[#d4af37] pl-4 py-1 bg-[#d4af37]/5">
                     Mungkin hari ni bukan harinya, tapi sistem automasi ni sebenarnya boleh mudahkan kerja sesiapa je, bukan untuk trader tegar je. 😉
                 </p>
             </div>
 
             <div class="flex flex-col gap-3">
-                <button onclick="openGate()" class="gate-btn bg-cyan-500 text-black border-none w-full py-4 hover:shadow-[0_0_25px_rgba(34,211,238,0.4)]">Saya minat, Nak join</button>
+                <button onclick="openGate()" class="gate-btn bg-[#d4af37] text-[#040f21] border-none w-full py-4 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold">Saya minat, Nak join</button>
                 <a href="https://www.tiktok.com/@mfr_rakankongsi" target="_blank" class="secondary-btn">Okay, faham! saya tidak berminat</a>
             </div>
         </div>
@@ -313,13 +314,13 @@
     <div id="chart-canvas"></div>
     <div class="grid-overlay"></div>
 
-    <!-- Modal Panduan Copytrade (Gambar Dikemas Kini) -->
+    <!-- Modal Panduan Copytrade -->
     <div id="copytrade-modal" class="modal-overlay" onclick="closePopup(event)">
         <div class="modal-content w-full max-sm" onclick="event.stopPropagation()">
-            <button onclick="closePopup(event)" class="absolute -top-12 right-0 text-neutral-400 hover:text-white transition-colors">
+            <button onclick="closePopup(event)" class="absolute -top-12 right-0 text-slate-400 hover:text-[#d4af37] transition-colors">
                 <i data-lucide="x-circle" class="w-8 h-8"></i>
             </button>
-            <div class="glass-premium rounded-[2rem] p-1.5 border-white/10 shadow-2xl">
+            <div class="glass-premium rounded-[2rem] p-1.5 border-[#d4af37]/20 shadow-2xl">
                 <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener" class="block group">
                     <img 
                         src="https://i.postimg.cc/qMxcsq7y/buatkan-gambar-ini-202604041706.jpg" 
@@ -340,7 +341,7 @@
                     <img 
                         src="https://i.postimg.cc/XJ5TZVnx/IMG_20260130_044021.jpg" 
                         alt="RIDZUAN" 
-                        class="w-32 h-32 object-cover rounded-full border-[6px] border-[#020617]"
+                        class="w-32 h-32 object-cover rounded-full border-[6px] border-[#040f21]"
                     >
                 </div>
             </div>
@@ -349,17 +350,17 @@
                 <h1 class="text-4xl font-extrabold tracking-tighter mb-2 shimmer-text uppercase">
                     RIDZUAN (MFR)
                 </h1>
-                <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-xl bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
-                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-cyan-400"></i>
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">RAKAN KONGSI</span>
+                <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 backdrop-blur-md">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#d4af37] mono">RAKAN KONGSI</span>
                 </div>
             </div>
 
-            <div class="glass-premium w-full p-5 rounded-3xl border-l-4 border-l-cyan-500 text-left relative overflow-hidden group">
+            <div class="glass-premium w-full p-5 rounded-3xl border-l-4 border-l-[#d4af37] text-left relative overflow-hidden group">
                 <div class="flex justify-between items-center mb-3">
-                    <div class="flex items-center gap-2 text-white/40">
+                    <div class="flex items-center gap-2 text-white/60">
                         <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
-                        <span class="text-[9px] font-bold uppercase tracking-widest">Trading_Engine_Live</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-slate-300">Trading_Engine_Live</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
@@ -367,52 +368,52 @@
                     </div>
                 </div>
                 <div class="space-y-3">
-                    <p class="text-[13.5px] text-blue-50 leading-relaxed font-medium">
-                        <span class="text-cyan-400 font-bold tracking-tighter">&gt;</span> Seorang trader melakukan copytrade <span class="bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded font-bold">100%</span> mengunakan robot trade autopilot.
+                    <p class="text-[13.5px] text-slate-100 leading-relaxed font-medium">
+                        <span class="text-[#d4af37] font-bold tracking-tighter">&gt;</span> Seorang trader melakukan copytrade <span class="bg-[#d4af37]/20 text-[#facc15] px-1.5 py-0.5 rounded font-bold">100%</span> mengunakan robot trade autopilot.
                     </p>
-                    <p class="text-[13.5px] text-blue-100/80 leading-relaxed font-medium border-t border-white/5 pt-3">
-                        <i data-lucide="eye" class="w-3.5 h-3.5 inline mr-1 text-cyan-400"></i> Anda boleh lihat akaun trading kami secara <span class="text-cyan-400 font-bold">live trade</span> mengunakan robot trading.
+                    <p class="text-[13.5px] text-slate-300 leading-relaxed font-medium border-t border-[#d4af37]/10 pt-3">
+                        <i data-lucide="eye" class="w-3.5 h-3.5 inline mr-1 text-[#d4af37]"></i> Anda boleh lihat akaun trading kami secara <span class="text-[#d4af37] font-bold">live trade</span> mengunakan robot trading.
                     </p>
                 </div>
             </div>
         </header>
 
         <div class="flex flex-col items-center mb-4 floating-arrow">
-            <span class="text-[10px] font-black tracking-[0.4em] text-cyan-400 mb-2">KLIK DI SINI</span>
-            <i data-lucide="chevron-down" class="w-6 h-6 text-cyan-400"></i>
+            <span class="text-[10px] font-black tracking-[0.4em] text-[#d4af37] mb-2">KLIK DI SINI</span>
+            <i data-lucide="chevron-down" class="w-6 h-6 text-[#d4af37]"></i>
         </div>
 
         <main class="w-full space-y-4">
             <a href="javascript:openPopup()" class="glow-card glass-premium flex items-center p-5 rounded-[2.2rem] group relative">
-                <div class="relative flex-shrink-0 w-14 h-14 rounded-2xl overflow-hidden border border-white/10 group-hover:border-cyan-400/50 transition-all shadow-2xl">
-                    <img src="https://i.postimg.cc/QHwppD43/CANVA-RK-PRO-11.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="VRS EA">
-                    <div class="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative flex-shrink-0 w-16 h-16 rounded-2xl overflow-hidden border border-white/10 group-hover:border-[#d4af37]/50 transition-all shadow-2xl bg-black/20 flex items-center justify-center">
+                    <img src="https://i.postimg.cc/T3hfZtjP/buatkan_design_logo_202604090208_removebg_preview.png" class="w-[120%] h-[120%] object-contain scale-110 transition-transform duration-700 group-hover:scale-125" alt="VRS EA">
+                    <div class="absolute inset-0 bg-[#d4af37]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 
                 <div class="ml-5 flex-grow">
                     <div class="flex items-center gap-2">
-                        <h2 class="text-[16px] font-extrabold text-white group-hover:text-cyan-400 transition-colors uppercase tracking-tight">Copytrade VRS EA</h2>
-                        <span class="animate-pulse bg-cyan-500 text-black text-[7px] px-1.5 py-0.5 rounded font-black uppercase">Live</span>
+                        <h2 class="text-[16px] font-extrabold text-white group-hover:text-[#d4af37] transition-colors uppercase tracking-tight">Copytrade VRS EA</h2>
+                        <span class="animate-pulse bg-[#d4af37] text-black text-[7px] px-1.5 py-0.5 rounded font-black uppercase">Live</span>
                     </div>
-                    <p class="text-[11px] text-neutral-400 mt-1 font-medium uppercase tracking-tighter">Gold Strategy Autopilot</p>
+                    <p class="text-[11px] text-slate-400 mt-1 font-medium uppercase tracking-tighter">Gold Strategy Autopilot</p>
                 </div>
                 
-                <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-neutral-500 group-hover:bg-cyan-400 group-hover:text-black transition-all transform group-hover:translate-x-1">
+                <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-[#d4af37] group-hover:text-[#040f21] transition-all transform group-hover:translate-x-1">
                     <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </div>
             </a>
         </main>
 
-        <footer class="mt-24 text-center pb-12 opacity-60">
+        <footer class="mt-24 text-center pb-12 opacity-80">
             <div class="flex flex-col items-center gap-3">
                 <div class="flex items-center gap-4">
-                    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/30"></div>
-                    <i data-lucide="activity" class="w-4 h-4 text-cyan-500"></i>
-                    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/30"></div>
+                    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#d4af37]/40"></div>
+                    <i data-lucide="activity" class="w-4 h-4 text-[#d4af37]"></i>
+                    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#d4af37]/40"></div>
                 </div>
                 <div class="flex flex-col gap-1">
-                    <p class="text-[11px] font-black uppercase tracking-[0.5em] text-white">RAKAN KONGSI</p>
-                    <p class="text-[9px] font-medium text-neutral-500 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
+                    <p class="text-[11px] font-black uppercase tracking-[0.5em] text-[#d4af37]">RAKAN KONGSI</p>
+                    <p class="text-[9px] font-medium mono text-slate-400 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
                 </div>
             </div>
         </footer>
