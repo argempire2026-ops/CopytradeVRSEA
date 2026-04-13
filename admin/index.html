@@ -85,7 +85,7 @@
         .opened #gate-content { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(0.8); }
 
         .gate-btn {
-            padding: 12px 30px;
+            padding: 12px 24px;
             font-weight: 800;
             letter-spacing: 0.1em;
             border-radius: 12px;
@@ -93,6 +93,11 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             font-size: 14px;
+            width: 100%;
+        }
+
+        @media (min-width: 400px) {
+            .gate-btn { width: auto; padding: 12px 30px; }
         }
 
         #ya-btn {
@@ -220,7 +225,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -244,6 +249,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             text-align: center;
+            font-size: 14px;
         }
         .secondary-btn:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -275,10 +281,10 @@
         <div class="gate-panel gate-right"></div>
         
         <div id="gate-content">
-            <i data-lucide="shield-check" class="w-16 h-16 text-[#d4af37] mx-auto mb-6 opacity-70"></i>
-            <h2 class="text-xl font-bold tracking-widest text-white mb-2 uppercase">Akses Terminal</h2>
-            <p class="text-slate-300 text-sm mb-8 px-4">Adakah anda seorang trader? Sila sahkan untuk masuk ke profil.</p>
-            <div class="flex gap-4 justify-center">
+            <i data-lucide="shield-check" class="w-14 h-14 sm:w-16 sm:h-16 text-[#d4af37] mx-auto mb-4 sm:mb-6 opacity-70"></i>
+            <h2 class="text-lg sm:text-xl font-bold tracking-widest text-white mb-2 uppercase">Akses Terminal</h2>
+            <p class="text-slate-300 text-xs sm:text-sm mb-6 sm:mb-8 px-2 sm:px-4">Adakah anda seorang trader? Sila sahkan untuk masuk ke profil.</p>
+            <div class="flex flex-col min-[400px]:flex-row gap-3 sm:gap-4 justify-center">
                 <button id="ya-btn" class="gate-btn" onclick="openGate()">YA</button>
                 <button id="tidak-btn" class="gate-btn" onclick="showNoPopup()">TIDAK</button>
             </div>
@@ -287,24 +293,24 @@
 
     <!-- POP-UP "Eh, kejap-kejap!" -->
     <div id="no-modal" class="modal-overlay">
-        <div class="modal-content glass-premium p-8 rounded-[2.5rem] border-[#d4af37]/30 text-center relative">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-[#0a1930] border-2 border-[#d4af37] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)]">
-                <i data-lucide="help-circle" class="w-10 h-10 text-[#d4af37]"></i>
+        <div class="modal-content glass-premium p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-[#d4af37]/30 text-center relative mx-auto">
+            <div class="absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-[#0a1930] border-2 border-[#d4af37] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+                <i data-lucide="help-circle" class="w-8 h-8 sm:w-10 sm:h-10 text-[#d4af37]"></i>
             </div>
             
-            <h2 class="text-2xl font-bold text-white mb-6 mt-6">🛑 Eh, kejap-kejap!</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 mt-6 sm:mt-8">🛑 Eh, kejap-kejap!</h2>
             
-            <div class="space-y-4 text-left mb-8">
-                <p class="text-slate-200 text-sm leading-relaxed">
+            <div class="space-y-3 sm:space-y-4 text-left mb-6 sm:mb-8">
+                <p class="text-slate-200 text-xs sm:text-sm leading-relaxed">
                     Belum masuk dunia trading lagi ke? Chill, tak ada hal pun! Pintu kami sentiasa terbuka kalau korang rasa nak mula belajar nanti.
                 </p>
-                <p class="text-slate-200 text-sm leading-relaxed border-l-2 border-[#d4af37] pl-4 py-1 bg-[#d4af37]/5">
+                <p class="text-slate-200 text-xs sm:text-sm leading-relaxed border-l-2 border-[#d4af37] pl-3 sm:pl-4 py-1 bg-[#d4af37]/5">
                     Mungkin hari ni bukan harinya, tapi sistem automasi ni sebenarnya boleh mudahkan kerja sesiapa je, bukan untuk trader tegar je. 😉
                 </p>
             </div>
 
             <div class="flex flex-col gap-3">
-                <button onclick="openGate()" class="gate-btn bg-[#d4af37] text-[#040f21] border-none w-full py-4 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold">Saya minat, Nak join</button>
+                <button onclick="openGate()" class="gate-btn bg-[#d4af37] text-[#040f21] border-none w-full py-3.5 sm:py-4 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold">Saya minat, Nak join</button>
                 <a href="https://www.tiktok.com/@mfr_rakankongsi" target="_blank" class="secondary-btn">Okay, faham! saya tidak berminat</a>
             </div>
         </div>
@@ -316,104 +322,105 @@
 
     <!-- Modal Panduan Copytrade -->
     <div id="copytrade-modal" class="modal-overlay" onclick="closePopup(event)">
-        <div class="modal-content w-full max-sm" onclick="event.stopPropagation()">
-            <button onclick="closePopup(event)" class="absolute -top-12 right-0 text-slate-400 hover:text-[#d4af37] transition-colors">
-                <i data-lucide="x-circle" class="w-8 h-8"></i>
+        <div class="modal-content w-full max-w-sm mx-auto" onclick="event.stopPropagation()">
+            <button onclick="closePopup(event)" class="absolute -top-10 sm:-top-12 right-0 text-slate-400 hover:text-[#d4af37] transition-colors bg-black/40 p-1 sm:p-0 rounded-full sm:bg-transparent">
+                <i data-lucide="x-circle" class="w-7 h-7 sm:w-8 sm:h-8"></i>
             </button>
-            <div class="glass-premium rounded-[2rem] p-1.5 border-[#d4af37]/20 shadow-2xl">
+            <div class="glass-premium rounded-[1.5rem] sm:rounded-[2rem] p-1.5 border-[#d4af37]/20 shadow-2xl">
                 <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener" class="block group">
                     <img 
                         src="https://i.postimg.cc/1t25bpn7/gambar-ini-tolong-202604131539.jpg" 
                         alt="Join Telegram" 
-                        class="w-full h-auto rounded-[1.8rem]"
+                        class="w-full h-auto rounded-[1.3rem] sm:rounded-[1.8rem]"
                     >
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="max-w-md mx-auto px-6 py-16 relative z-10 flex flex-col items-center opacity-0 transition-opacity duration-1000" id="main-content">
+    <div class="max-w-md mx-auto px-5 sm:px-6 py-10 sm:py-16 relative z-10 flex flex-col items-center opacity-0 transition-opacity duration-1000" id="main-content">
         
-        <header class="w-full flex flex-col items-center text-center mb-8">
-            <div class="mb-8">
+        <header class="w-full flex flex-col items-center text-center mb-6 sm:mb-8">
+            <div class="mb-6 sm:mb-8 mt-4 sm:mt-0">
                 <div class="profile-wrapper">
                     <div class="profile-pulse"></div>
+                    <!-- Saiz avatar yang responsif: kecil di mobile, membesar di tablet/pc -->
                     <img 
                         src="https://i.postimg.cc/T3hfZtjP/buatkan_design_logo_202604090208_removebg_preview.png" 
                         alt="VRS EA" 
-                        class="w-60 h-60 object-contain p-2 bg-[#0a1930] rounded-full border-[6px] border-[#040f21]"
+                        class="w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 object-contain p-2 bg-[#0a1930] rounded-full border-[4px] sm:border-[6px] border-[#040f21] transition-all duration-300"
                     >
                 </div>
             </div>
 
             <div class="mb-5">
-                <h1 class="text-4xl font-extrabold tracking-tighter mb-2 shimmer-text uppercase">
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tighter mb-2 shimmer-text uppercase transition-all duration-300">
                     VRS EA
                 </h1>
-                <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 backdrop-blur-md">
-                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-[#d4af37]"></i>
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#d4af37] mono">COPYTRADE</span>
+                <div class="inline-flex items-center gap-2 py-1 px-3 sm:py-1.5 sm:px-4 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 backdrop-blur-md">
+                    <i data-lucide="trending-up" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#d4af37]"></i>
+                    <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-[#d4af37] mono">COPYTRADE</span>
                 </div>
             </div>
 
-            <div class="glass-premium w-full p-5 rounded-3xl border-l-4 border-l-[#d4af37] text-left relative overflow-hidden group">
-                <div class="flex justify-between items-center mb-3">
+            <div class="glass-premium w-full p-4 sm:p-5 rounded-[1.5rem] sm:rounded-3xl border-l-4 border-l-[#d4af37] text-left relative overflow-hidden group">
+                <div class="flex justify-between items-center mb-2 sm:mb-3">
                     <div class="flex items-center gap-2 text-white/60">
-                        <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
-                        <span class="text-[9px] font-bold uppercase tracking-widest text-slate-300">Trading_Engine_Live</span>
+                        <i data-lucide="monitor" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                        <span class="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-300">Trading_Engine_Live</span>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
-                        <span class="text-[8px] text-green-400 font-bold">AUTO-SCAN</span>
+                        <span class="text-[7px] sm:text-[8px] text-green-400 font-bold">AUTO-SCAN</span>
                     </div>
                 </div>
-                <div class="space-y-3">
-                    <p class="text-[13.5px] text-slate-100 leading-relaxed font-medium">
+                <div class="space-y-2 sm:space-y-3">
+                    <p class="text-xs sm:text-[13.5px] text-slate-100 leading-relaxed font-medium">
                         <span class="text-[#d4af37] font-bold tracking-tighter">&gt;</span> Team trader melakukan copytrade <span class="bg-[#d4af37]/20 text-[#facc15] px-1.5 py-0.5 rounded font-bold">100%</span> mengunakan robot trade autopilot.
                     </p>
-                    <p class="text-[13.5px] text-slate-300 leading-relaxed font-medium border-t border-[#d4af37]/10 pt-3">
-                        <i data-lucide="eye" class="w-3.5 h-3.5 inline mr-1 text-[#d4af37]"></i> Anda boleh lihat akaun trading kami secara <span class="text-[#d4af37] font-bold">live trade</span> mengunakan robot trading.
+                    <p class="text-xs sm:text-[13.5px] text-slate-300 leading-relaxed font-medium border-t border-[#d4af37]/10 pt-2 sm:pt-3">
+                        <i data-lucide="eye" class="w-3 h-3 sm:w-3.5 sm:h-3.5 inline mr-1 text-[#d4af37]"></i> Anda boleh lihat akaun trading kami secara <span class="text-[#d4af37] font-bold">live trade</span> mengunakan robot trading.
                     </p>
                 </div>
             </div>
         </header>
 
-        <div class="flex flex-col items-center mb-4 floating-arrow">
-            <span class="text-[10px] font-black tracking-[0.4em] text-[#d4af37] mb-2">KLIK DI SINI</span>
-            <i data-lucide="chevron-down" class="w-6 h-6 text-[#d4af37]"></i>
+        <div class="flex flex-col items-center mb-3 sm:mb-4 floating-arrow">
+            <span class="text-[9px] sm:text-[10px] font-black tracking-[0.4em] text-[#d4af37] mb-1 sm:mb-2">KLIK DI SINI</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 sm:w-6 sm:h-6 text-[#d4af37]"></i>
         </div>
 
         <main class="w-full space-y-4">
-            <a href="javascript:openPopup()" class="glow-card glass-premium flex items-center p-5 rounded-[2.2rem] group relative">
-                <div class="relative flex-shrink-0 w-16 h-16 rounded-2xl overflow-hidden border border-white/10 group-hover:border-[#d4af37]/50 transition-all shadow-2xl bg-black/20 flex items-center justify-center">
+            <a href="javascript:openPopup()" class="glow-card glass-premium flex items-center p-4 sm:p-5 rounded-[1.8rem] sm:rounded-[2.2rem] group relative">
+                <div class="relative flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 group-hover:border-[#d4af37]/50 transition-all shadow-2xl bg-black/20 flex items-center justify-center">
                     <img src="https://i.postimg.cc/T3hfZtjP/buatkan_design_logo_202604090208_removebg_preview.png" class="w-[120%] h-[120%] object-contain scale-110 transition-transform duration-700 group-hover:scale-125" alt="VRS EA">
                     <div class="absolute inset-0 bg-[#d4af37]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 
-                <div class="ml-5 flex-grow">
+                <div class="ml-4 sm:ml-5 flex-grow">
                     <div class="flex items-center gap-2">
-                        <h2 class="text-[16px] font-extrabold text-white group-hover:text-[#d4af37] transition-colors uppercase tracking-tight">Copytrade VRS EA</h2>
-                        <span class="animate-pulse bg-[#d4af37] text-black text-[7px] px-1.5 py-0.5 rounded font-black uppercase">Live</span>
+                        <h2 class="text-[14px] sm:text-[16px] font-extrabold text-white group-hover:text-[#d4af37] transition-colors uppercase tracking-tight">Copytrade VRS EA</h2>
+                        <span class="animate-pulse bg-[#d4af37] text-black text-[6px] sm:text-[7px] px-1.5 py-0.5 rounded font-black uppercase">Live</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 mt-1 font-medium uppercase tracking-tighter">Gold Strategy Autopilot</p>
+                    <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 sm:mt-1 font-medium uppercase tracking-tighter">Gold Strategy Autopilot</p>
                 </div>
                 
-                <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-[#d4af37] group-hover:text-[#040f21] transition-all transform group-hover:translate-x-1">
-                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-[#d4af37] group-hover:text-[#040f21] transition-all transform group-hover:translate-x-1">
+                    <i data-lucide="chevron-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
             </a>
         </main>
 
-        <footer class="mt-24 text-center pb-12 opacity-80">
+        <footer class="mt-16 sm:mt-24 text-center pb-8 sm:pb-12 opacity-80">
             <div class="flex flex-col items-center gap-3">
                 <div class="flex items-center gap-4">
-                    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#d4af37]/40"></div>
-                    <i data-lucide="activity" class="w-4 h-4 text-[#d4af37]"></i>
-                    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#d4af37]/40"></div>
+                    <div class="h-[1px] w-10 sm:w-12 bg-gradient-to-r from-transparent to-[#d4af37]/40"></div>
+                    <i data-lucide="activity" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#d4af37]"></i>
+                    <div class="h-[1px] w-10 sm:w-12 bg-gradient-to-l from-transparent to-[#d4af37]/40"></div>
                 </div>
                 <div class="flex flex-col gap-1">
-                    <p class="text-[11px] font-black uppercase tracking-[0.5em] text-[#d4af37]">COPYTRADE</p>
-                    <p class="text-[9px] font-medium mono text-slate-400 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
+                    <p class="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.5em] text-[#d4af37]">COPYTRADE</p>
+                    <p class="text-[8px] sm:text-[9px] font-medium mono text-slate-400 uppercase tracking-widest">&copy; <span id="year"></span> | Advanced Algorithm Protocol</p>
                 </div>
             </div>
         </footer>
@@ -429,7 +436,7 @@
             setTimeout(() => {
                 mainContent.classList.remove('opacity-0');
                 mainContent.classList.add('opacity-100');
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = 'auto'; // Unlock scroll content
             }, 600);
             setTimeout(() => {
                 wrapper.style.display = 'none';
