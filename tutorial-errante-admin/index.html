@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Panduan ERRANTE - Pusat Pembelajaran Dagangan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,15 +13,22 @@
             --errante-dark: #07162b;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--errante-dark);
             color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .glass-effect {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -32,9 +39,9 @@
         }
 
         .card-hover:hover {
-            transform: translateY(-8px);
-            border-color: var(--errante-red);
-            box-shadow: 0 20px 40px -15px rgba(230, 43, 50, 0.2);
+            transform: translateY(-6px);
+            border-color: rgba(230, 43, 50, 0.5);
+            box-shadow: 0 20px 40px -15px rgba(230, 43, 50, 0.25);
         }
 
         .transition-all-custom {
@@ -42,35 +49,48 @@
         }
         
         .icon-box {
-            background: linear-gradient(135deg, rgba(230, 43, 50, 0.1), rgba(230, 43, 50, 0.05));
+            background: linear-gradient(135deg, rgba(230, 43, 50, 0.15), rgba(230, 43, 50, 0.05));
             border: 1px solid rgba(230, 43, 50, 0.3);
         }
 
         .bg-pattern {
-            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 40px 40px;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.04) 1px, transparent 0);
+            background-size: 32px 32px;
         }
 
         .animate-pulse-slow {
-            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(0.98); }
+            50% { opacity: 0.95; transform: scale(0.99); }
+        }
+
+        /* Custom Scrollbar for better mobile view in modal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(230, 43, 50, 0.3);
+            border-radius: 10px;
         }
     </style>
 </head>
 <body class="selection:bg-red-600 selection:text-white bg-pattern">
 
     <!-- Header dengan Logo PNG -->
-    <header class="w-full py-10 flex justify-center items-center">
+    <header class="w-full py-6 md:py-10 flex justify-center items-center px-4">
         <a href="/" class="flex flex-col items-center">
             <img src="https://i.postimg.cc/QxBXPgf9/0x0-removebg-preview.png" 
                  alt="Logo ERRANTE PNG" 
-                 class="h-16 md:h-24 object-contain hover:scale-105 transition-transform duration-300"
+                 class="h-12 sm:h-16 md:h-24 object-contain hover:scale-105 transition-transform duration-300"
                  id="main-logo">
-            <div id="logo-fallback" class="hidden text-3xl font-bold tracking-[0.3em] uppercase">
+            <div id="logo-fallback" class="hidden text-2xl md:text-3xl font-bold tracking-[0.3em] uppercase">
                 ERRANTE<span class="text-red-600">.</span>
             </div>
         </a>
@@ -84,23 +104,23 @@
     </script>
 
     <!-- Bahagian Hero -->
-    <section class="pt-6 pb-20 px-6 text-center max-w-5xl mx-auto">
-        <div class="inline-block px-4 py-1 mb-6 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold uppercase tracking-widest">
+    <section class="pt-2 pb-16 md:pb-20 px-5 text-center max-w-5xl mx-auto">
+        <div class="inline-block px-4 py-1.5 mb-5 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-[10px] md:text-xs font-bold uppercase tracking-widest">
             Panduan Lengkap ERRANTE
         </div>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 tracking-tight leading-[1.15]">
             Kuasai Langkah <br> <span class="gradient-text text-red-500">Buka Akaun Dagangan</span>
         </h1>
-        <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-gray-300 text-sm sm:text-base md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed px-2">
             Dari pendaftaran profil hingga pembukaan akaun MT4/MT5. Tonton video tutorial untuk memulakan langkah dagangan anda hari ini.
         </p>
         
         <!-- Bar Carian -->
-        <div class="relative max-w-xl mx-auto mb-4">
-            <input type="text" placeholder="Cari langkah atau panduan video..." 
-                   class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-8 focus:outline-none focus:border-red-500 transition-all-custom text-white shadow-2xl">
-            <div class="absolute right-6 top-5 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="relative max-w-xl mx-auto mb-2">
+            <input type="text" placeholder="Cari panduan video..." 
+                   class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 md:py-5 px-6 md:px-8 text-sm md:text-base focus:outline-none focus:border-red-500 transition-all-custom text-white shadow-2xl">
+            <div class="absolute right-5 md:right-6 top-4 md:top-5 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
@@ -108,137 +128,162 @@
     </section>
 
     <!-- Kandungan Utama (Grid Tutorial) -->
-    <main class="px-6 md:px-12 pb-20 pt-10 max-w-7xl mx-auto">
-        <div class="flex items-center justify-between mb-12 border-l-4 border-red-600 pl-6">
-            <h2 class="text-3xl font-bold">Koleksi Tutorial</h2>
-            <p class="text-gray-500 text-sm hidden md:block tracking-wide uppercase">Pilih kategori untuk bermula</p>
+    <main class="px-5 md:px-12 pb-16 md:pb-20 pt-6 md:pt-10 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-8 md:mb-12 border-l-4 border-red-600 pl-4 md:pl-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-white">Koleksi Tutorial</h2>
+            <p class="text-gray-400 text-xs md:text-sm hidden sm:block tracking-wide uppercase">Pilih kategori untuk bermula</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
             
             <!-- Tutorial 1: Pendaftaran Profil -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Panduan Pendaftaran</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                    Langkah pertama mendaftar profil pengguna ERRANTE dan cara melengkapkan dokumen KYC untuk verifikasi akaun.
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Panduan Pendaftaran</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow">
+                    Langkah pertama mendaftar profil pengguna ERRANTE dan cara melengkapkan dokumen KYC.
                 </p>
                 
-                <div class="mt-auto space-y-4">
-                    <div class="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-center">
-                        <p class="text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-2">PENTING: Sila klik pautan di bawah dahulu</p>
-                        <a href="https://myportal.errante.com/links/go/6369" target="_blank" rel="noopener noreferrer" class="inline-block w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg font-bold text-xs transition-all">
+                <div class="mt-auto space-y-3 md:space-y-4">
+                    <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-center">
+                        <p class="text-[10px] md:text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-2">PENTING: Sila klik pautan dahulu</p>
+                        <a href="https://myportal.errante.com/links/go/6369" target="_blank" rel="noopener noreferrer" class="inline-flex w-full justify-center items-center py-2.5 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg font-bold text-xs transition-all">
                             Pautan Pendaftaran IB
                         </a>
                     </div>
                     
-                    <p class="text-[10px] text-gray-500 text-center italic">Kemudian, tonton tutorial video di bawah:</p>
+                    <p class="text-[10px] text-gray-400 text-center italic">Kemudian, tonton video di bawah:</p>
                     
-                    <a href="https://drive.google.com/file/d/1XXG6QQ_SzGJQ8X3vZdgPU2BQqOeXvDul/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/1XXG6QQ_SzGJQ8X3vZdgPU2BQqOeXvDul/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Daftar
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 2: Cara Buka Akaun Dagangan -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Cara Buka Akaun</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                    Tonton cara membuka akaun MT4/MT5 Live atau Demo. Panduan memilih jenis akaun (Standard, Premium, VIP) dan leverage.
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Cara Buka Akaun</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
+                    Tonton cara membuka akaun MT4/MT5 Live atau Demo. Panduan memilih jenis akaun dan leverage yang sesuai.
                 </p>
                 <div class="mt-auto">
-                    <a href="https://drive.google.com/file/d/1vBxcCKWvlYy1vrcLiOKIxkWVKCUrSiWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/1vBxcCKWvlYy1vrcLiOKIxkWVKCUrSiWb/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Buka Akaun
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 3: Deposit -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Cara Deposit Dana</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                    Panduan visual memasukkan modal ke akaun anda melalui gerbang pembayaran tempatan yang pantas dan selamat.
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Cara Deposit Dana</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
+                    Panduan visual memasukkan modal ke akaun anda melalui gerbang pembayaran tempatan yang pantas.
                 </p>
                 <div class="mt-auto">
-                    <a href="https://drive.google.com/file/d/1hz50fUcuAqaEURpilPqxWn32XH5_nvJ8/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/1hz50fUcuAqaEURpilPqxWn32XH5_nvJ8/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Deposit
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 4: Withdrawal -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Cara Withdrawal</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Cara Withdrawal</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
                     Lihat proses pengeluaran keuntungan terus ke akaun bank tempatan anda dengan sistem yang telus.
                 </p>
                 <div class="mt-auto">
-                    <a href="https://drive.google.com/file/d/1kBK8eV7lMVvGLnV9evoHHurkMMGRT9B2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/1kBK8eV7lMVvGLnV9evoHHurkMMGRT9B2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Withdrawal
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 5: Request Link IB -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Mohon Link IB</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Mohon Link IB</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
                     Langkah visual untuk memohon status Introducing Broker (IB) bagi mula membina komuniti dagangan anda.
                 </p>
                 <div class="mt-auto">
-                    <a href="https://drive.google.com/file/d/124mBXD-OlE5jxfOy-OjjGq5h7W_Zw20j/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/124mBXD-OlE5jxfOy-OjjGq5h7W_Zw20j/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Mohon IB
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 6: Cari Link IB -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Mencari Link IB</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                    Di mana anda boleh dapatkan pautan rujukan unik anda untuk dikongsi kepada pelanggan baru? Tonton di sini.
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Mencari Link IB</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
+                    Di mana anda boleh dapatkan pautan rujukan unik anda untuk dikongsi kepada pelanggan baru?
                 </p>
                 <div class="mt-auto">
-                    <a href="https://drive.google.com/file/d/1kNLb0Epr5STr3SvDWIf6J8J8_sp3aO4X/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <a href="https://drive.google.com/file/d/1kNLb0Epr5STr3SvDWIf6J8J8_sp3aO4X/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Tonton Video Lokasi Link
                     </a>
                 </div>
             </div>
 
             <!-- Tutorial 7: Cara Tukar IB -->
-            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
-                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-white">Cara Tukar IB</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                    Panduan langkah demi langkah untuk memohon pertukaran Introducing Broker (IB) akaun sedia ada anda ke bawah rangkaian komuniti kami.
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Cara Tukar IB</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow">
+                    Panduan memohon pertukaran IB akaun sedia ada anda ke bawah rangkaian komuniti kami.
                 </p>
-                <div class="mt-auto space-y-4">
-                    <div class="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-center">
-                        <p class="text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-2">Maklumat Penting</p>
-                        <p class="text-xs text-gray-300">Sila sediakan nombor akaun dagangan (MT4/MT5) anda sebelum membuat permohonan penukaran.</p>
+                <div class="mt-auto space-y-3 md:space-y-4">
+                    <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-center">
+                        <p class="text-[10px] md:text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-1.5">Maklumat Penting</p>
+                        <p class="text-[11px] md:text-xs text-gray-300 leading-snug">Sila sediakan nombor akaun MT4/MT5 anda sebelum permohonan.</p>
                     </div>
-                    <button onclick="openModal()" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                    <button onclick="openModal()" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
                         Panduan Tukar IB
                     </button>
+                </div>
+            </div>
+
+            <!-- Tutorial 8: Join Copytrade -->
+            <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 card-hover transition-all-custom flex flex-col h-full group lg:col-start-2">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl icon-box flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 md:w-7 md:h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white leading-tight">Join Copytrade VRS EA</h3>
+                <p class="text-gray-300 text-sm leading-relaxed mb-6 flex-grow">
+                    Ketahui cara mudah untuk menyambungkan akaun dagangan dengan sistem Copytrade kami.
+                </p>
+                <div class="mt-auto space-y-3 md:space-y-4">
+                    <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-center">
+                        <p class="text-[10px] md:text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-2">PENTING: Sila klik pautan dahulu</p>
+                        <a href="https://myportal.errante.com/social-trading/rating/5016/" target="_blank" rel="noopener noreferrer" class="inline-flex w-full justify-center items-center py-2.5 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg font-bold text-xs transition-all">
+                            Pautan Copytrade
+                        </a>
+                    </div>
+                    
+                    <p class="text-[10px] text-gray-400 text-center italic leading-tight">Tonton tutorial video di bawah terlebih dahulu:</p>
+                    
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-3.5 md:py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95">
+                        Tonton Video Copytrade
+                    </a>
                 </div>
             </div>
 
@@ -246,122 +291,122 @@
     </main>
 
     <!-- Bahagian Perhatian & Telegram CTA -->
-    <section class="px-6 md:px-12 pb-32 max-w-4xl mx-auto">
-        <div class="glass-effect rounded-[2.5rem] p-8 md:p-12 border-red-600/30 text-center relative overflow-hidden animate-pulse-slow">
+    <section class="px-5 md:px-12 pb-24 md:pb-32 max-w-4xl mx-auto">
+        <div class="glass-effect rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 border-red-600/30 text-center relative overflow-hidden animate-pulse-slow">
             <!-- Red Glow Line -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
             
-            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 uppercase tracking-widest">
-                <span class="text-red-600">Perhatian:</span> Langkah Seterusnya
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6 uppercase tracking-widest">
+                <span class="text-red-600">Perhatian</span>
             </h2>
-            <p class="text-gray-300 text-sm md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-                Selepas anda sudah membuat pendaftaran, buka akaun dan deposit. Terus hubungi admin untuk sambungkan atau join <span class="text-white font-bold">Copytrade VRS EA</span> di group telegram. Admin akan balas secepat mungkin. Terima kasih.
+            <p class="text-gray-300 text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-2xl mx-auto">
+                Jika ada sebarang masalah, klik butang di bawah untuk minta bantuan di group.
             </p>
             
             <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener noreferrer" 
-               class="inline-flex items-center justify-center gap-4 px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl transition-all shadow-2xl shadow-red-600/40 hover:scale-105 active:scale-95 group">
-                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+               class="inline-flex items-center justify-center gap-3 md:gap-4 px-6 sm:px-10 py-4 md:py-5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl transition-all shadow-2xl shadow-red-600/40 hover:scale-105 active:scale-95 w-full sm:w-auto">
+                <svg class="w-5 h-5 md:w-6 md:h-6 fill-current" viewBox="0 0 24 24">
                     <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.53.26l.195-2.82 5.128-4.628c.223-.198-.048-.307-.346-.108l-6.338 3.987-2.73-.854c-.594-.185-.605-.594.124-.88l10.665-4.113c.493-.185.925.108.76.855z"/>
                 </svg>
-                Chat di Telegram
-                <span class="group-hover:translate-x-2 transition-transform">→</span>
+                <span class="text-sm md:text-base">Chat di Telegram</span>
+                <span class="ml-1 hidden sm:inline transition-transform">→</span>
             </a>
         </div>
     </section>
 
     <!-- Kaki Laman -->
-    <footer class="border-t border-white/10 py-16 px-6 md:px-12 bg-[#040d1a]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-start text-center md:text-left mb-16">
+    <footer class="border-t border-white/5 py-12 md:py-16 px-5 md:px-12 bg-[#040d1a]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 items-start text-center md:text-left mb-12 md:mb-16">
             <div>
-                <div class="text-2xl font-bold mb-4 flex items-center justify-center md:justify-start">
-                    <span class="text-white tracking-widest uppercase text-xl">ERRANTE</span><span class="text-red-600">.</span>
+                <div class="text-xl md:text-2xl font-bold mb-3 md:mb-4 flex items-center justify-center md:justify-start">
+                    <span class="text-white tracking-widest uppercase">ERRANTE</span><span class="text-red-600">.</span>
                 </div>
-                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                <p class="text-gray-500 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 px-4 md:px-0">
                     Portal tutorial video rasmi komuniti untuk memudahkan urusan dagangan anda bersama ERRANTE.
                 </p>
             </div>
             <div>
-                <h4 class="font-bold mb-4 text-white uppercase text-xs tracking-widest">Kategori Utama</h4>
-                <ul class="text-gray-500 text-sm space-y-2">
-                    <li><a href="#" class="hover:text-red-400">Pembukaan Akaun Dagangan</a></li>
-                    <li><a href="#" class="hover:text-red-400">Deposit & Withdrawal</a></li>
-                    <li><a href="#" class="hover:text-red-400">Panduan Rakan Niaga IB</a></li>
+                <h4 class="font-bold mb-3 md:mb-4 text-white uppercase text-[11px] md:text-xs tracking-widest">Kategori Utama</h4>
+                <ul class="text-gray-500 text-xs md:text-sm space-y-2 md:space-y-3">
+                    <li><a href="#" class="hover:text-red-400 transition-colors">Pembukaan Akaun Dagangan</a></li>
+                    <li><a href="#" class="hover:text-red-400 transition-colors">Deposit & Withdrawal</a></li>
+                    <li><a href="#" class="hover:text-red-400 transition-colors">Panduan Rakan Niaga IB</a></li>
                 </ul>
             </div>
-            <div class="text-gray-500 text-sm">
-                <h4 class="font-bold mb-4 text-white uppercase text-xs tracking-widest">Sokongan Video</h4>
-                <p class="leading-relaxed mb-4">
-                    Ada soalan tentang tutorial? Hubungi IB (introducer broker) anda.
+            <div class="text-gray-500 text-xs md:text-sm px-4 md:px-0">
+                <h4 class="font-bold mb-3 md:mb-4 text-white uppercase text-[11px] md:text-xs tracking-widest">Sokongan Video</h4>
+                <p class="leading-relaxed">
+                    Ada soalan tentang tutorial? Sila hubungi IB (introducer broker) anda.
                 </p>
             </div>
         </div>
 
         <!-- Blok Penafian Tengah (Centered Disclaimer) -->
-        <div class="max-w-3xl mx-auto text-center mb-16">
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-3">Penafian Penting</h4>
-                <p class="text-xs text-gray-400 leading-relaxed italic">
+        <div class="max-w-3xl mx-auto text-center mb-10 md:mb-12">
+            <div class="p-5 md:p-6 rounded-2xl md:rounded-3xl bg-white/5 border border-white/10 mx-2 md:mx-0">
+                <h4 class="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3">Penafian Penting</h4>
+                <p class="text-[10px] md:text-xs text-gray-400 leading-relaxed italic">
                     Laman web ini diuruskan sepenuhnya oleh Copytrade VRS EA sebagai inisiatif bantuan komuniti. Sila ambil maklum bahawa portal ini adalah platform panduan bebas dan bukannya laman web rasmi daripada pihak broker.
                 </p>
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto pt-6 md:pt-8 border-t border-white/5 text-center text-gray-600 text-[9px] md:text-[10px] uppercase tracking-widest">
             &copy; 2026 ERRANTE VIDEO TUTORIAL. Hak Cipta Terpelihara.
         </div>
     </footer>
 
     <!-- Popup / Modal Tukar IB -->
-    <div id="ibModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity opacity-0" style="transition: opacity 0.3s ease;">
-        <div class="bg-[#07162b] border border-red-500/30 rounded-3xl p-6 md:p-8 w-full max-w-2xl relative shadow-2xl shadow-red-900/20 transform transition-transform scale-95 flex flex-col max-h-[90vh]" id="ibModalContent" style="transition: transform 0.3s ease;">
+    <div id="ibModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md transition-opacity opacity-0" style="transition: opacity 0.3s ease;">
+        <div class="bg-[#07162b] border border-red-500/30 rounded-[2rem] p-5 sm:p-6 md:p-8 w-full max-w-2xl relative shadow-2xl shadow-red-900/20 transform transition-transform scale-95 flex flex-col max-h-[85vh] sm:max-h-[90vh]" id="ibModalContent" style="transition: transform 0.3s ease;">
             
             <!-- Butang Tutup (Close) -->
-            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <button onclick="closeModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full active:scale-90">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
-            <h3 class="text-2xl font-bold text-white mb-6 pr-8">Format E-mel Tukar IB</h3>
+            <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-4 sm:mb-6 pr-8">Format E-mel Tukar IB</h3>
             
             <!-- Ruangan Teks Template -->
-            <div class="space-y-3 relative overflow-y-auto custom-scrollbar max-h-[60vh]">
+            <div class="space-y-3 relative overflow-y-auto custom-scrollbar pr-1 sm:pr-2" style="-webkit-overflow-scrolling: touch;">
                 
                 <!-- Email -->
-                <div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white/5 p-3.5 sm:p-4 rounded-xl border border-white/10 gap-3">
                     <div>
-                        <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📧 Hantar ke</p>
-                        <p class="text-white text-sm font-medium">support@errante.com</p>
+                        <p class="text-[9px] sm:text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📧 Hantar ke</p>
+                        <p class="text-white text-xs sm:text-sm font-medium break-all">support@errante.com</p>
                     </div>
-                    <button onclick="copyText('email', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                    <button onclick="copyText('email', this)" class="w-full sm:w-auto px-4 py-2.5 sm:py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 active:scale-95">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                         Salin
                     </button>
                 </div>
 
                 <!-- Subjek -->
-                <div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white/5 p-3.5 sm:p-4 rounded-xl border border-white/10 gap-3">
                     <div>
-                        <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📝 Subjek</p>
-                        <p class="text-white text-sm font-medium">Request to Change Introducing Broker (IB)</p>
+                        <p class="text-[9px] sm:text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📝 Subjek</p>
+                        <p class="text-white text-xs sm:text-sm font-medium leading-snug">Request to Change Introducing Broker (IB)</p>
                     </div>
-                    <button onclick="copyText('subject', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                    <button onclick="copyText('subject', this)" class="w-full sm:w-auto px-4 py-2.5 sm:py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 active:scale-95">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                         Salin
                     </button>
                 </div>
 
                 <!-- Ayat Permohonan -->
-                <div class="bg-white/5 p-4 rounded-xl border border-white/10 mt-2">
-                    <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
+                <div class="bg-white/5 p-4 sm:p-5 rounded-xl border border-white/10 mt-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 border-b border-white/10 pb-3 sm:pb-4 gap-3">
                         <div>
-                            <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📄 Isi Kandungan</p>
-                            <p class="text-white text-sm font-medium">Ayat permohonan ke pihak sokongan</p>
+                            <p class="text-[9px] sm:text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📄 Isi Kandungan</p>
+                            <p class="text-white text-xs sm:text-sm font-medium">Ayat permohonan ke pihak sokongan</p>
                         </div>
-                        <button onclick="copyText('body', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                        <button onclick="copyText('body', this)" class="w-full sm:w-auto px-4 py-2.5 sm:py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 active:scale-95">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                             Salin
                         </button>
                     </div>
-                    <pre class="whitespace-pre-wrap font-sans text-gray-300 text-sm leading-relaxed">Dear Errante Support Team,
+                    <pre class="whitespace-pre-wrap font-sans text-gray-300 text-[11px] sm:text-xs md:text-sm leading-relaxed overflow-x-hidden">Dear Errante Support Team,
 
 I would like to request a change of the Introducing Broker (IB) for my trading account. Please find my account details below:
 
