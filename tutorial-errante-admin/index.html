@@ -222,6 +222,26 @@
                 </div>
             </div>
 
+            <!-- Tutorial 7: Cara Tukar IB -->
+            <div class="glass-effect rounded-[2.5rem] p-8 card-hover transition-all-custom cursor-pointer group flex flex-col h-full">
+                <div class="w-14 h-14 rounded-2xl icon-box flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Cara Tukar IB</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                    Panduan langkah demi langkah untuk memohon pertukaran Introducing Broker (IB) akaun sedia ada anda ke bawah rangkaian komuniti kami.
+                </p>
+                <div class="mt-auto space-y-4">
+                    <div class="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-center">
+                        <p class="text-[11px] text-yellow-500 font-bold uppercase leading-tight mb-2">Maklumat Penting</p>
+                        <p class="text-xs text-gray-300">Sila sediakan nombor akaun dagangan (MT4/MT5) anda sebelum membuat permohonan penukaran.</p>
+                    </div>
+                    <button onclick="openModal()" class="flex items-center justify-center w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all shadow-lg shadow-red-600/20">
+                        Panduan Tukar IB
+                    </button>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -291,5 +311,152 @@
         </div>
     </footer>
 
+    <!-- Popup / Modal Tukar IB -->
+    <div id="ibModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity opacity-0" style="transition: opacity 0.3s ease;">
+        <div class="bg-[#07162b] border border-red-500/30 rounded-3xl p-6 md:p-8 w-full max-w-2xl relative shadow-2xl shadow-red-900/20 transform transition-transform scale-95 flex flex-col max-h-[90vh]" id="ibModalContent" style="transition: transform 0.3s ease;">
+            
+            <!-- Butang Tutup (Close) -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-full">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-2xl font-bold text-white mb-6 pr-8">Format E-mel Tukar IB</h3>
+            
+            <!-- Ruangan Teks Template -->
+            <div class="space-y-3 relative overflow-y-auto custom-scrollbar max-h-[60vh]">
+                
+                <!-- Email -->
+                <div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div>
+                        <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📧 Hantar ke</p>
+                        <p class="text-white text-sm font-medium">support@errante.com</p>
+                    </div>
+                    <button onclick="copyText('email', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        Salin
+                    </button>
+                </div>
+
+                <!-- Subjek -->
+                <div class="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+                    <div>
+                        <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📝 Subjek</p>
+                        <p class="text-white text-sm font-medium">Request to Change Introducing Broker (IB)</p>
+                    </div>
+                    <button onclick="copyText('subject', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        Salin
+                    </button>
+                </div>
+
+                <!-- Ayat Permohonan -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 mt-2">
+                    <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
+                        <div>
+                            <p class="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-bold">📄 Isi Kandungan</p>
+                            <p class="text-white text-sm font-medium">Ayat permohonan ke pihak sokongan</p>
+                        </div>
+                        <button onclick="copyText('body', this)" class="px-3 py-2 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            Salin
+                        </button>
+                    </div>
+                    <pre class="whitespace-pre-wrap font-sans text-gray-300 text-sm leading-relaxed">Dear Errante Support Team,
+
+I would like to request a change of the Introducing Broker (IB) for my trading account. Please find my account details below:
+
+Full Name: [Nama Penuh Anda seperti dalam IC]
+Trading Account Number: [Nombor Akaun MT4/MT5 Anda]
+Registered Email: [E-mel berdaftar Errante anda]
+New IB ID: 6369
+
+Reason for Change: To receive continuous trading support, mentorship, and guidance from the new IB.
+
+Kindly process this request and let me know once it is completed.
+Thank you for your assistance.</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skrip Fungsi Modal & Salin -->
+    <script>
+        function openModal() {
+            const modal = document.getElementById('ibModal');
+            const content = document.getElementById('ibModalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Trigger reflow untuk animasi
+            void modal.offsetWidth; 
+            
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+            document.body.style.overflow = 'hidden'; // Halang background dari scroll
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('ibModal');
+            const content = document.getElementById('ibModalContent');
+            
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        function copyText(type, btn) {
+            let textToCopy = "";
+            if (type === 'email') {
+                textToCopy = "support@errante.com";
+            } else if (type === 'subject') {
+                textToCopy = "Request to Change Introducing Broker (IB)";
+            } else if (type === 'body') {
+                textToCopy = `Dear Errante Support Team,\n\nI would like to request a change of the Introducing Broker (IB) for my trading account. Please find my account details below:\n\nFull Name: [Nama Penuh Anda seperti dalam IC]\nTrading Account Number: [Nombor Akaun MT4/MT5 Anda]\nRegistered Email: [E-mel berdaftar Errante anda]\nNew IB ID: 6369\n\nReason for Change: To receive continuous trading support, mentorship, and guidance from the new IB.\n\nKindly process this request and let me know once it is completed.\nThank you for your assistance.`;
+            }
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalHtml = btn.innerHTML;
+                
+                // Ubah butang kepada status berjaya
+                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Disalin!';
+                
+                btn.classList.replace('bg-white/10', 'bg-green-600/20');
+                btn.classList.replace('hover:bg-white/20', 'hover:bg-green-600/30');
+                btn.classList.replace('text-gray-300', 'text-green-400');
+                btn.classList.remove('hover:text-white');
+                
+                // Kembali kepada asal selepas 2.5 saat
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.replace('bg-green-600/20', 'bg-white/10');
+                    btn.classList.replace('hover:bg-green-600/30', 'hover:bg-white/20');
+                    btn.classList.replace('text-green-400', 'text-gray-300');
+                    btn.classList.add('hover:text-white');
+                }, 2500);
+            } catch (err) {
+                console.error('Gagal menyalin', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Tutup modal jika klik di luar kotak
+        document.getElementById('ibModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
 </body>
 </html>
