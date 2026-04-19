@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bio Link - VRS EA | Professional Trader</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
@@ -275,7 +273,6 @@
 </head>
 <body>
 
-    <!-- OVERLAY PINTU GERBANG TRADING -->
     <div id="gate-wrapper">
         <div class="gate-panel gate-left"></div>
         <div class="gate-panel gate-right"></div>
@@ -291,7 +288,6 @@
         </div>
     </div>
 
-    <!-- POP-UP "Eh, kejap-kejap!" -->
     <div id="no-modal" class="modal-overlay">
         <div class="modal-content glass-premium p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-[#d4af37]/30 text-center relative mx-auto">
             <div class="absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-[#0a1930] border-2 border-[#d4af37] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)]">
@@ -316,23 +312,52 @@
         </div>
     </div>
 
-    <!-- Konten Utama -->
     <div id="chart-canvas"></div>
     <div class="grid-overlay"></div>
 
-    <!-- Modal Panduan Copytrade -->
     <div id="copytrade-modal" class="modal-overlay" onclick="closePopup(event)">
-        <div class="modal-content w-full max-w-sm mx-auto" onclick="event.stopPropagation()">
-            <button onclick="closePopup(event)" class="absolute -top-10 sm:-top-12 right-0 text-slate-400 hover:text-[#d4af37] transition-colors bg-black/40 p-1 sm:p-0 rounded-full sm:bg-transparent">
-                <i data-lucide="x-circle" class="w-7 h-7 sm:w-8 sm:h-8"></i>
+        <div class="modal-content glass-premium p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border-[#d4af37]/30 text-center relative mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <button onclick="closePopup(event)" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-slate-400 hover:text-[#d4af37] transition-colors bg-black/40 p-1.5 rounded-full z-20">
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-            <div class="glass-premium rounded-[1.5rem] sm:rounded-[2rem] p-1.5 border-[#d4af37]/20 shadow-2xl">
-                <a href="https://t.me/+qCu5B_jduchhODI1" target="_blank" rel="noopener" class="block group">
-                    <img 
-                        src="https://i.postimg.cc/1t25bpn7/gambar-ini-tolong-202604131539.jpg" 
-                        alt="Join Telegram" 
-                        class="w-full h-auto rounded-[1.3rem] sm:rounded-[1.8rem]"
-                    >
+            
+            <div class="relative w-full mb-4">
+                <img 
+                    src="https://i.postimg.cc/TPVfwQhR/1-Klik-Join-Copytrade-VRS-EA-2-Klik-3-Dot-3-Klik-Open-in-browser-(8)-(1).png" 
+                    alt="Panduan Sertai Copytrade" 
+                    class="w-full h-auto rounded-xl sm:rounded-2xl border border-[#d4af37]/20 shadow-lg relative z-0"
+                >
+                <div class="absolute top-[14%] right-[28%] sm:top-[14.5%] sm:right-[30%] w-6 h-6 sm:w-8 sm:h-8 bg-yellow-400 text-black font-black text-sm sm:text-lg rounded-full flex items-center justify-center border-2 border-black shadow-[0_0_15px_rgba(250,204,21,1)] z-10 animate-bounce">1</div>
+                
+                <div class="absolute bottom-[20%] left-[45%] sm:bottom-[19%] sm:left-[43%] w-6 h-6 sm:w-8 sm:h-8 bg-yellow-400 text-black font-black text-sm sm:text-lg rounded-full flex items-center justify-center border-2 border-black shadow-[0_0_15px_rgba(250,204,21,1)] z-10 animate-bounce" style="animation-delay: 0.5s;">2</div>
+            </div>
+            
+            <div class="bg-[#d4af37]/5 border-l-2 border-[#d4af37] p-3 rounded-r-xl mb-6 text-left">
+                <p class="text-[11px] sm:text-xs text-slate-200 leading-relaxed font-medium">
+                    Jika anda mempunyai masalah untuk join group telegram kami. Sila ikut langkah seperti gambar diatas. Sebelum itu, pilih platform dibawah terlebih dahulu
+                </p>
+            </div>
+            
+            <h3 class="text-sm sm:text-base font-bold text-[#d4af37] mb-4">Boleh saya tahu anda dari platform mana?</h3>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <a href="https://t.me/+tskcGjcmZDFiMzJl" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Facebook</span>
+                </a>
+                <a href="https://t.me/+6ufoFyyIhAA4YzRl" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Instagram</span>
+                </a>
+                <a href="https://t.me/+z2GAA5tZfxMwZjRl" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Tiktok</span>
+                </a>
+                <a href="https://t.me/+JdWguOhf7hNhODM1" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Threads</span>
+                </a>
+                <a href="https://t.me/+bOEBJsjmu8Y0MTI9" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Whatsapp</span>
+                </a>
+                <a href="https://t.me/+-_iUhHpm0kNiNDRl" target="_blank" class="flex items-center justify-center bg-[#040f21]/80 hover:bg-[#d4af37] border border-white/10 hover:border-[#d4af37] text-slate-300 hover:text-[#040f21] py-3.5 px-2 rounded-xl transition-all">
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase">Telegram</span>
                 </a>
             </div>
         </div>
@@ -344,7 +369,6 @@
             <div class="mb-6 sm:mb-8 mt-4 sm:mt-0">
                 <div class="profile-wrapper">
                     <div class="profile-pulse"></div>
-                    <!-- Saiz avatar yang responsif: kecil di mobile, membesar di tablet/pc -->
                     <img 
                         src="https://i.postimg.cc/T3hfZtjP/buatkan_design_logo_202604090208_removebg_preview.png" 
                         alt="VRS EA" 
@@ -391,7 +415,7 @@
         </div>
 
         <main class="w-full space-y-4">
-            <a href="javascript:openPopup()" class="glow-card glass-premium flex items-center p-4 sm:p-5 rounded-[1.8rem] sm:rounded-[2.2rem] group relative">
+            <div onclick="openPopup()" class="glow-card glass-premium flex items-center p-4 sm:p-5 rounded-[1.8rem] sm:rounded-[2.2rem] group relative cursor-pointer">
                 <div class="relative flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 group-hover:border-[#d4af37]/50 transition-all shadow-2xl bg-black/20 flex items-center justify-center">
                     <img src="https://i.postimg.cc/T3hfZtjP/buatkan_design_logo_202604090208_removebg_preview.png" class="w-[120%] h-[120%] object-contain scale-110 transition-transform duration-700 group-hover:scale-125" alt="VRS EA">
                     <div class="absolute inset-0 bg-[#d4af37]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -408,7 +432,7 @@
                 <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-[#d4af37] group-hover:text-[#040f21] transition-all transform group-hover:translate-x-1">
                     <i data-lucide="chevron-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
-            </a>
+            </div>
         </main>
 
         <footer class="mt-16 sm:mt-24 text-center pb-8 sm:pb-12 opacity-80">
