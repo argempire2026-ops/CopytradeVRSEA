@@ -1,0 +1,24 @@
+{
+  "name": "VRS Expert Advisor",
+  "short_name": "VRS",
+  "description": "VRS Expert Advisor",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#020817",
+  "theme_color": "#020817",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./vrs-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./vrs-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
