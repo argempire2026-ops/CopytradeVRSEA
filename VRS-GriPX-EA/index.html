@@ -9,191 +9,20 @@
     <meta property="og:description" content="VRS Community" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- VRS HOME SCREEN / FAVICON ICON -->
-    <!-- The requested Postimages page is kept as the canonical source. -->
-    <meta name="theme-color" content="#0b0b0f" />
+    <!-- VRS Home Screen / App Icons -->
+    <meta name="theme-color" content="#02050a" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="VRS" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="VRS EA" />
+    <meta name="apple-mobile-web-app-title" content="VRS" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="application-name" content="VRS EA" />
-    <meta name="msapplication-TileColor" content="#0b0b0f" />
 
-    <!-- Placeholder link elements are populated with the ACTUAL image URL found behind the supplied Postimages page. -->
-    <link id="vrs-favicon" rel="icon" />
-    <link id="vrs-favicon-apple" rel="apple-touch-icon" />
-    <link id="vrs-manifest" rel="manifest" />
-
-    <script>
-      (function () {
-        "use strict";
-
-        const VRS_ICON_PAGE = "https://postimg.cc/crXBLLGk";
-        const VRS_RESOLVER_TIMEOUT = 12000;
-
-        function setIcon(url) {
-          if (!url || !/^https?:\/\//i.test(url)) return;
-
-          const favicon = document.getElementById("vrs-favicon");
-          const apple = document.getElementById("vrs-favicon-apple");
-
-          if (favicon) {
-            favicon.sizes = "any";
-            favicon.href = url;
-          }
-
-          if (apple) {
-            apple.sizes = "180x180";
-            apple.href = url;
-          }
-
-          try {
-            const manifest = {
-              name: "VRS (EXPERT ADVISOR)",
-              short_name: "VRS EA",
-              start_url: window.location.href.split("#")[0],
-              scope: new URL("./", window.location.href).pathname,
-              display: "standalone",
-              background_color: "#0b0b0f",
-              theme_color: "#0b0b0f",
-              description: "VRS Community",
-              icons: [
-                { src: url, purpose: "any" },
-                { src: url, purpose: "maskable" }
-              ]
-            };
-
-            const blob = new Blob([JSON.stringify(manifest)], {
-              type: "application/manifest+json"
-            });
-            const blobUrl = URL.createObjectURL(blob);
-            const manifestLink = document.getElementById("vrs-manifest");
-
-            if (manifestLink) {
-              manifestLink.href = blobUrl;
-              manifestLink.type = "application/manifest+json";
-            }
-          } catch (e) {
-            console.warn("VRS manifest setup failed:", e);
-          }
-        }
-
-        function normalizeUrl(raw) {
-          if (!raw || typeof raw !== "string") return null;
-
-          let value = raw.trim()
-            .replace(/&amp;/g, "&")
-            .replace(/\\u0026/g, "&")
-            .replace(/\\u003A/gi, ":")
-            .replace(/\\u002F/gi, "/")
-            .replace(/^["']|["']$/g, "");
-
-          if (value.startsWith("//")) value = "https:" + value;
-
-          try {
-            const u = new URL(value, VRS_ICON_PAGE);
-            if (!/^https?:$/i.test(u.protocol)) return null;
-            if (/^i\.postimg\.cc$/i.test(u.hostname)) return u.href;
-            return null;
-          } catch (_) {
-            return null;
-          }
-        }
-
-        function findPostimgImage(text) {
-          if (!text) return null;
-
-          const patterns = [
-            /https?:\/\/i\.postimg\.cc\/[^\s"'<>\])]+/gi,
-            /https?:\/\/[^\s"'<>\])]*postimg[^\s"'<>\])]+/gi
-          ];
-
-          for (const pattern of patterns) {
-            const matches = text.match(pattern) || [];
-            for (const match of matches) {
-              const candidate = normalizeUrl(match);
-              if (candidate && /\.(?:png|jpe?g|webp|avif|gif)(?:[?#].*)?$/i.test(candidate)) {
-                return candidate;
-              }
-            }
-          }
-
-          return null;
-        }
-
-        async function fetchText(url) {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), VRS_RESOLVER_TIMEOUT);
-          try {
-            const response = await fetch(url, {
-              method: "GET",
-              mode: "cors",
-              cache: "no-store",
-              signal: controller.signal
-            });
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            return await response.text();
-          } finally {
-            clearTimeout(timer);
-          }
-        }
-
-        async function resolveFromJina() {
-          const jinaUrl = "https://r.jina.ai/http://postimg.cc/crXBLLGk";
-          const html = await fetchText(jinaUrl);
-          return findPostimgImage(html);
-        }
-
-        async function resolveFromMicrolink() {
-          const apiUrl =
-            "https://api.microlink.io/?url=" +
-            encodeURIComponent(VRS_ICON_PAGE) +
-            "&meta=true";
-
-          const raw = await fetchText(apiUrl);
-          const data = JSON.parse(raw);
-
-          const candidates = [
-            data && data.data && data.data.image && data.data.image.url,
-            data && data.data && data.data.logo && data.data.logo.url,
-            data && data.data && data.data.ogImage && data.data.ogImage.url
-          ];
-
-          for (const item of candidates) {
-            const candidate = normalizeUrl(item);
-            if (candidate) return candidate;
-          }
-
-          return findPostimgImage(raw);
-        }
-
-        async function initVrsIcon() {
-          const resolvers = [resolveFromJina, resolveFromMicrolink];
-
-          for (const resolver of resolvers) {
-            try {
-              const imageUrl = await resolver();
-              if (imageUrl) {
-                setIcon(imageUrl);
-                console.info("VRS Home Screen icon loaded:", imageUrl);
-                return;
-              }
-            } catch (error) {
-              console.warn("VRS icon resolver failed:", error);
-            }
-          }
-
-          console.warn(
-            "VRS could not resolve the direct image URL from " +
-            VRS_ICON_PAGE +
-            ". The Postimages page itself is not a direct image URL."
-          );
-        }
-
-        initVrsIcon();
-      })();
-    </script>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./vrs-icon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="./vrs-icon-64.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./vrs-icon-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./vrs-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="./vrs-icon-512.png" />
 
     <script type="module" crossorigin>var j4=Object.defineProperty;var z4=(s,e,t)=>e in s?j4(s,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):s[e]=t;var De=(s,e,t)=>z4(s,typeof e!="symbol"?e+"":e,t);(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const o of document.querySelectorAll('link[rel="modulepreload"]'))i(o);new MutationObserver(o=>{for(const l of o)if(l.type==="childList")for(const c of l.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&i(c)}).observe(document,{childList:!0,subtree:!0});function t(o){const l={};return o.integrity&&(l.integrity=o.integrity),o.referrerPolicy&&(l.referrerPolicy=o.referrerPolicy),o.crossOrigin==="use-credentials"?l.credentials="include":o.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function i(o){if(o.ep)return;o.ep=!0;const l=t(o);fetch(o.href,l)}})();function Y4(s){return s&&s.__esModule&&Object.prototype.hasOwnProperty.call(s,"default")?s.default:s}var kb={exports:{}},gC={},Ub={exports:{}},ip={exports:{}};ip.exports;var ox;function q4(){return ox||(ox=1,(function(s,e){/**
  * @license React
